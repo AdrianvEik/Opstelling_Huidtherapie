@@ -1,10 +1,12 @@
 
 from time import sleep
 from typing import Tuple, List
+import configparser as cp
+import os
+
 
 import numpy as np
 import matplotlib.pyplot as plt
-import os
 import tkinter as tk
 
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationToolbar2Tk)
@@ -25,6 +27,9 @@ def generate_data() -> Tuple[np.ndarray, np.ndarray]:
 class Base_physics(tk.Tk):
     def __init__(self):
         super().__init__()
+        # Config path
+        self.config_path = os.path.join(os.path.dirname(__file__), "cfg.config")
+
         # Titel boven de GUI
         self.title("Technisch interface")
 
@@ -39,9 +44,32 @@ class Base_physics(tk.Tk):
         self.row = 0
         self.rowfig = 0
 
-        # Vars
-        self.measurement = None
+        ## Vars
+        # Algemeen
+        self.measurementtype = None
+        self.nrofmeasurements = None
 
+        # Grafiek
+        self.msperframe = None
+        self.xastype = None
+        self.yastype = None
+        self.stepsize = None
+
+        # RTdata
+        self.msperdata = None
+
+        # Vaste parameters
+        self.adc2v = None
+        self.std = None
+
+        # Read the config and update the vars
+        self.initialise_config_data()
+
+        # Settings link
+        self.settings_link = Settings
+        self.settings_open = None
+
+        ## Build GUI
         # Figsize
         self.dpi = 100
         self.figsize = (self.geom[0]/(2*self.dpi), self.geom[1]/(self.dpi))
@@ -70,11 +98,32 @@ class Base_physics(tk.Tk):
                       "Hieronder staan enkele knoppen voor data verwerking.",
                       buttons=True,
                       commands=[[self.load_data, self.start_meas, self.pause_meas],
-                                [self.load_data, self.save_data, self.results]])
+                                [self.load_data, self.start_settings, self.results]])
         self.job = self.update_vars(generate_data, [str(np.random.randint(10)) for i in range(6)])
+
+    def initialise_config_data(self):
+        config = cp.ConfigParser()
+        config.read(self.config_path)
+
+        self.measurementtype = config["Algemeen"]["typemeting"]
+        self.nrofmeasurements = config["Algemeen"]["nmetingen"]
+
+        self.msperframe = config["Grafiek"]["MsPerFrame"]
+        self.xastype = config["Grafiek"]["Grafiektypex"]
+        self.yastype = config["Grafiek"]["Grafiektypey"]
+        self.stepsize = config["Grafiek"]["Stapsgrootte"]
+
+        self.msperdata = config["RTData"]["MsPerData"]
+
+        self.adc2v = config["VasteParameters"]["ADC2V"]
+        self.std = config["VasteParameters"]["std"]
+
+    def update_config_data(self):
+        pass
+
     def graph_topleft(self, data):
         """
-        Graph in de top left corner
+        Graph in the top left corner
         """
 
         # Maak een figuur aan
@@ -219,6 +268,11 @@ class Base_physics(tk.Tk):
         return "results"
 
     def pause_meas(self):
+        """
+        Stop the update_vars job and set self.job to None
+
+        :return: None
+        """
         # Stop de meting, als er een meting loopt
         if self.job is not None:
             # Zoek de exacte job en stop deze met after_cancel
@@ -228,8 +282,64 @@ class Base_physics(tk.Tk):
         return None
 
     def start_meas(self):
+        """
+        Restart the update_vars job and set self.job to the job
+
+        :return: None
+        """
         # Check of er al een meting loopt
         if self.job is None:
             self.job = self.update_vars(generate_data, [str(np.random.randint(10)) for i in range(6)])
 
         return None
+
+    def start_settings(self):
+        """
+        Start the settings window
+
+        :return: None
+        """
+        # Check of er al een settings window open is
+        if self.settings_open is None:
+            self.settings_open = Settings()
+
+        return None
+
+class Settings(tk.Tk):
+
+    def __int__(self):
+        super().__int__()
+
+        # Titel boven de GUI
+        self.title("Technisch interface")
+
+        # Grootte van de GUI in px
+        self.geom = (900, 600)
+        self.geometry("%sx%s" % self.geom)
+
+        # Niet resizable
+        self.resizable(False, False)
+
+        # Global row counter
+        self.row = 0
+
+        # Settings aanmaken
+        self.build_settings()
+
+    def build_settings(self):
+        frame = tk.Frame(master=self)
+        framerow = 0
+        # Maak een label aan
+        label = tk.Label(master=frame, text="Settings")
+        label.grid(row=framerow, column=0, sticky="NSEW", columnspan=1, rowspan=1)
+        entry = tk.Entry(master=frame)
+        entry.grid(row=framerow, column=1, sticky="NSEW", columnspan=1, rowspan=1)
+        framerow += 1
+
+        frame.grid(row=self.row, column=0, sticky="NSEW", columnspan=1, rowspan=1)
+        self.row += 1
+
+class LoadData(tk.Tk):
+
+    def __int__(self):
+        pass
