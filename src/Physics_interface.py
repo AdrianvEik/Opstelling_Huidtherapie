@@ -69,11 +69,20 @@ class Base_physics(tk.Tk):
         self.settings_link = Settings
         self.settings_open = None
 
+        # Data acquisititie methode
+        # Afhankelijk van de instellingen in de config file wordt dit aangepast
+        if self.measurementtype == None:
+            self.acquisition_method = generate_data # returns time, data (np.ndarray)
+        elif self.measurementtype == "0":
+            self.acquisition_method = generate_data # returns time, data (np.ndarray)
+        elif self.measurementtype == "1":
+            self.acquisition_method = generate_data # returns time, data (np.ndarray)
+
         ## Build GUI
         # Figsize
         self.dpi = 100
         self.figsize = (self.geom[0]/(2*self.dpi), self.geom[1]/(self.dpi))
-        self.graph_topleft(generate_data())
+        self.graph_topleft(self.acquisition_method())
 
         # Build the right side of the GUI
 
@@ -101,7 +110,14 @@ class Base_physics(tk.Tk):
                                 [self.load_data, self.start_settings, self.results]])
         self.job = self.update_vars(generate_data, [str(np.random.randint(10)) for i in range(6)])
 
-    def initialise_config_data(self):
+    # Configuratie methods
+    def initialise_config_data(self) -> None:
+        """
+        Initialiseer de data uit de config file
+        en koppel deze aan de juiste attributen.
+
+        :return: None
+        """
         config = cp.ConfigParser()
         config.read(self.config_path)
 
@@ -119,8 +135,15 @@ class Base_physics(tk.Tk):
         self.std = config["VasteParameters"]["std"]
 
     def update_config_data(self):
+        """
+        Update de data in de config file, en update gelijk de attributen
+        met nieuwe waarden geselecteerd door de gebruiker in de settings window.
+
+        :return: None
+        """
         pass
 
+    # Frames en opbouw van de GUI
     def graph_topleft(self, data):
         """
         Graph in the top left corner
@@ -221,6 +244,24 @@ class Base_physics(tk.Tk):
 
         return (entries, variables) if (edit_state or buttons or updated) else None
 
+    # Data acquisitie methodes
+    def read_realtime_data(self, *args) -> str:
+        """
+        Lees enkele punten uit en voeg toe aan de bestaande array (meting=0)
+        :param args:
+        :return:
+        """
+        return str(np.random.randint(10))
+
+    def read_ndatapoints(self, *args) -> List[str]:
+        """
+        Lees n punten uit en ververs de bestaande array (meting=1)
+        :param args:
+        :return:
+        """
+        return [str(np.random.randint(10)) for i in range(6)]
+
+    # Real time data verwerking en after methode
     def update_vars(self, *args) -> str:
         """
         Update the variables in the GUI
@@ -244,6 +285,7 @@ class Base_physics(tk.Tk):
 
         return job
 
+    # Gelinkte functies
     def get_data(self):
         # This function should be called to request data from the hardware.py file
         # And format it to be used in the graph/real time data
