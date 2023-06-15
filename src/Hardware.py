@@ -21,8 +21,15 @@ import board
 import busio
 import adafruit_ads1x15.ads1015 as ADS
 from adafruit_ads1x15.analog_in import AnalogIn
+from typing import Tuple
+
+import matplotlib.pyplot as plt
+import numpy as np
 
 class ADCReader:
+    """
+    uitlezen
+    """
     def __init__(self):
         # Create the I2C bus
         self.i2c = busio.I2C(board.SCL, board.SDA)
@@ -31,22 +38,46 @@ class ADCReader:
         self.ads = ADS.ADS1015(self.i2c)
         
         # Create single-ended input on channel 0
-        self.chan = AnalogIn(self.ads, ADS.P0)
+        self.chan = AnalogIn(self.ads, ADS.P1)
         
         # Create differential input between channel 0 and 1
         # self.chan = AnalogIn(self.ads, ADS.P0, ADS.P1)
     
     def read_adc(self):
-        print("{:>5}\t{:>5}".format('raw', 'v'))
+        return self.chan.value, self.chan.voltage
+    
+    def get_meas(self, nmeas: int, tijd: float, sigma: int = 1, start_time: float = 0) -> Tuple[np.ndarray, float]:
+        meastime = tijd/nmeas
+        measlist = []
+        
+        for i in range(nmeas):
+            time.sleep(meastime)
+            measlist.append(self.read_adc()[1])
+            
+        t = time.time() - start_time
+        
+        return np.average(measlist), t, np.std(measlist) * sigma
+    
+    def show_measure(self):
         while True:
-            print("{:>5}\t{:>5.3f}".format(self.chan.value, self.chan.voltage))
-            time.sleep(0.5)
-
+            print("{:>5}\t{:>5.3f}\t{:>5.6f}".format(*self.get_meas(1, 0.1, 3)))
+            
 # Create an instance of the ADCReader class
 adc_reader = ADCReader()
 
-# Start reading the ADC values
-adc_reader.read_adc()
+#adc_reader.show_measure()
 
-#You can create an instance of the ADCReader class and call the read_adc() method to start reading the ADC values. 
-#The read_adc() method #will continuously print the raw ADC value and the corresponding voltage with a delay of 0.5 seconds between readings
+# Start reading the ADC values
+def save_to_txt(path: str) -> np.ndarray:
+    nmeasurements = 100 # n nr of meas
+    meastime = 0.1 # t per meas
+    
+    tstart = time.time()
+    
+    data_arr = np.zeros([nmeasurements, 3])
+    for i in range(nmeasurements):
+        d, t, s = adc_reader.get_meas(25, meastime, start_time = tstart)
+        data_arr[i] = np.array([d, t, s])
+    np.savetxt(path, data_arr)
+
+    return data_arr
