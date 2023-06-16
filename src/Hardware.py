@@ -26,58 +26,65 @@ from typing import Tuple
 import matplotlib.pyplot as plt
 import numpy as np
 
+
 class ADCReader:
     """
     uitlezen
     """
+
     def __init__(self):
         # Create the I2C bus
         self.i2c = busio.I2C(board.SCL, board.SDA)
-        
+
         # Create the ADC object using the I2C bus
         self.ads = ADS.ADS1015(self.i2c)
-        
+
         # Create single-ended input on channel 0
         self.chan = AnalogIn(self.ads, ADS.P1)
-        
+
         # Create differential input between channel 0 and 1
         # self.chan = AnalogIn(self.ads, ADS.P0, ADS.P1)
-    
+
     def read_adc(self):
         return self.chan.value, self.chan.voltage
-    
-    def get_meas(self, nmeas: int, tijd: float, sigma: int = 1, start_time: float = 0) -> Tuple[np.ndarray, float]:
-        meastime = tijd/nmeas
+
+    def get_meas(self, nmeas: int, tijd: float, sigma: int = 1,
+                 start_time: float = 0) -> Tuple[np.ndarray, float]:
+        meastime = tijd / nmeas
         measlist = []
-        
+
         for i in range(nmeas):
             time.sleep(meastime)
             measlist.append(self.read_adc()[1])
-            
+
         t = time.time() - start_time
-        
+
         return np.average(measlist), t, np.std(measlist) * sigma
-    
+
     def show_measure(self):
         while True:
-            print("{:>5}\t{:>5.3f}\t{:>5.6f}".format(*self.get_meas(1, 0.1, 3)))
-            
-# Create an instance of the ADCReader class
-adc_reader = ADCReader()
+            print(
+                "{:>5}\t{:>5.3f}\t{:>5.6f}".format(*self.get_meas(1, 0.1, 3)))
 
-#adc_reader.show_measure()
 
-# Start reading the ADC values
-def save_to_txt(path: str) -> np.ndarray:
-    nmeasurements = 100 # n nr of meas
-    meastime = 0.1 # t per meas
-    
-    tstart = time.time()
-    
-    data_arr = np.zeros([nmeasurements, 3])
-    for i in range(nmeasurements):
-        d, t, s = adc_reader.get_meas(25, meastime, start_time = tstart)
-        data_arr[i] = np.array([d, t, s])
-    np.savetxt(path, data_arr)
+if __name__ == "__main__":
+    # Create an instance of the ADCReader class
+    adc_reader = ADCReader()
 
-    return data_arr
+
+    # adc_reader.show_measure()
+
+    # Start reading the ADC values
+    def save_to_txt(path: str) -> np.ndarray:
+        nmeasurements = 100  # n nr of meas
+        meastime = 0.1  # t per meas
+
+        tstart = time.time()
+
+        data_arr = np.zeros([nmeasurements, 3])
+        for i in range(nmeasurements):
+            d, t, s = adc_reader.get_meas(25, meastime, start_time=tstart)
+            data_arr[i] = np.array([d, t, s])
+        np.savetxt(path, data_arr)
+
+        return data_arr
