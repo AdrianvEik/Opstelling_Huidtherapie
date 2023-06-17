@@ -1,3 +1,4 @@
+import sys
 from time import sleep, time
 from typing import Tuple, List
 import configparser as cp
@@ -119,6 +120,11 @@ class Base_physics(tk.Tk):
         self.std = None
         self.path2ref = None
 
+        # Student parameters
+        self.nrofmeasurementsstudent = None
+        self.student_measurementtime = None
+        self.student_measurementtype = None
+
         # Initialise base data arrays
         shape = 100
         self.xaxis = self.data_time = np.zeros(1)
@@ -199,11 +205,16 @@ class Base_physics(tk.Tk):
         """
         config = cp.ConfigParser()
         config.read(self.config_path)
+        # 0 = 1 frame voor x aantal metingen, 1 = real time toevoeging van metingen tot x aantal metingen dan
+        # verversen van grafiek
         self.measurementtype = config["Algemeen"]["typemeting"]
         self.nrofmeasurements = config["Algemeen"]["nmetingen"]
 
         self.msperframe = config["Grafiek"]["MsPerFrame"]
+
+        # x-as: 0 = tijd, 1 = metingen
         self.xastype = config["Grafiek"]["Grafiektypex"]
+        # y-as: 0 = voltage, 1 = intensiteit, 2 = transmissie ,3 = OD
         self.yastype = config["Grafiek"]["Grafiektypey"]
 
         self.stepsize = config["Grafiek"]["Stapsgrootte"]
@@ -213,6 +224,41 @@ class Base_physics(tk.Tk):
         self.adc2v = config["VasteParameters"]["ADC2V"]
         self.std = config["VasteParameters"]["std"]
         self.path2ref = config["VasteParameters"]["path_to_ref"]
+
+        self.nrofmeasurementsstudent = config["StudentMeting"]["measurement"]
+        self.student_measurementtime = config["StudentMeting"]["measurement_time"]
+        self.student_measurementtype = config["StudentMeting"]["measurement_type"]
+
+    def savecfg_to_config(self):
+        """
+        Save the current config to the config file.
+
+        :return: None
+        """
+        config = cp.ConfigParser()
+        # 0 = 1 frame voor x aantal metingen, 1 = real time toevoeging van metingen tot x aantal metingen dan
+        # verversen van grafiek
+        config["Algemeen"] = {"typemeting": self.measurementtype,
+                                "nmetingen": self.nrofmeasurements}
+
+        config["Grafiek"] = {"MsPerFrame": self.msperframe,
+                               "Grafiektypex": self.xastype,
+                                 "Grafiektypey": self.yastype,
+                                    "Stapsgrootte": self.stepsize}
+
+
+        config["RTData"] = {"MsPerData": self.msperdata}
+
+        config["VasteParameters"] = {"ADC2V": self.adc2v,
+                                        "std": self.std,
+                                          "path_to_ref": self.path2ref}
+
+        config["StudentMeting"] = {"measurement": self.nrofmeasurementsstudent,
+                                       "measurement_time": self.student_measurementtime,
+                                         "measurement_type": self.student_measurementtype}
+
+        with open(self.config_path, "w") as config_file:
+            config.write(config_file)
 
     def update_config_data(self):
         """
@@ -419,8 +465,6 @@ class Base_physics(tk.Tk):
         self.xaxis = data_time
         self.yaxis = data_voltage
 
-        print(self.call("after", "info"))
-
         job = self.after(1000, self.update_vars,
                          self.read_ndatapoints())  # 1000ms = 1s
 
@@ -500,7 +544,13 @@ class Base_physics(tk.Tk):
     def destroy(self) -> None:
         self.pause_meas()
         self.fig.clear()
-        return super().destroy()
+        
+        try:
+            super().destroy()
+        except tk.TclError:
+            sys.exit()
+
+        return None
 
 
 

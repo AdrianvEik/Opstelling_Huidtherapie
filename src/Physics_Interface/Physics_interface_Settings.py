@@ -106,7 +106,7 @@ class Settings(tk.Toplevel):
 
 
         self.selectie_grafiek_yas = tk.StringVar(frame)
-        print(int(self.parent.yastype))
+
         options_grafiek = ["Spanning (V)", "Intensiteit", "Transmissie", "OD-waarde"]
         preset_selctie = "Spanning (V)" if self.parent.yastype == str(0) else "Intensiteit" if\
                             self.parent.yastype == str(1) else "Transmissie" if\
@@ -178,6 +178,57 @@ class Settings(tk.Toplevel):
 
         framerow += 1
 
+        # Student meting informatie
+        label_student = tk.Label(master=frame, text="Student meting parameters")
+        label_student.grid(row=framerow, column=0, sticky="NSEW",
+                            columnspan=2,
+                            rowspan=1, padx=[0, 50])
+
+        framerow += 1
+
+        label_meetpunten = ttk.Label(master=frame, text="Aantal datapunten")
+        label_meetpunten.grid(row=framerow, column=0, sticky="NSEW",
+                                columnspan=1,
+                                rowspan=1, padx=[0, 50])
+
+        self.Entry_ndatapoints_student = tk.Entry(master=frame)
+        self.Entry_ndatapoints_student.insert(0, self.parent.nrofmeasurementsstudent)
+        self.Entry_ndatapoints_student.grid(row=framerow, column=1, sticky="NSEW",
+                                    columnspan=1,
+                                    rowspan=1)
+
+        framerow += 1
+
+        label_meettijdstudent = ttk.Label(master=frame, text="Meettijd [ms]")
+        label_meettijdstudent.grid(row=framerow, column=0, sticky="NSEW",
+                                columnspan=1,
+                                rowspan=1, padx=[0, 50])
+
+        self.Entry_meettijdstudent = tk.Entry(master=frame)
+        self.Entry_meettijdstudent.insert(0, self.parent.student_measurementtime)
+        self.Entry_meettijdstudent.grid(row=framerow, column=1, sticky="NSEW",
+                                    columnspan=1,
+                                    rowspan=1)
+
+        framerow += 1
+
+        label_typmeetstudent = ttk.Label(master=frame, text="Type meting")
+        label_typmeetstudent.grid(row=framerow, column=0, sticky="NSEW",
+                                columnspan=1,
+                                rowspan=1, padx=[0, 50])
+
+        options_typmeetstudent = ["Transmissie", "OD-waarde"]
+        self.selectie_typmeetstudent = tk.StringVar(frame)
+        preset_selectie_sttpy = options_typmeetstudent[int(self.parent.student_measurementtype)]
+        self.dropdown_typmeetstudent = ttk.OptionMenu(frame, self.selectie_typmeetstudent, preset_selectie_sttpy,
+                                                      *options_typmeetstudent)
+        self.dropdown_typmeetstudent.grid(row=framerow, column=1, sticky="NSEW",
+                                    columnspan=1,
+                                    rowspan=1)
+
+        framerow += 1
+
+
         button_save = ttk.Button(master=frame, text="Opslaan", command=self.save_options)
         button_save.grid(row=framerow, column=0, sticky="NSEW", columnspan=1,
                      rowspan=1)
@@ -203,16 +254,21 @@ class Settings(tk.Toplevel):
         self.parent.std = str(self.entry_sigma_factor.get())
         self.parent.path2ref = self.entry_path2ref.get()
 
+        self.parent.nrofmeasurementsstudent = str(self.Entry_ndatapoints_student.get())
+        self.parent.student_measurementtime = str(self.Entry_meettijdstudent.get())
+        self.parent.student_measurementtype = str(0) if self.selectie_typmeetstudent.get() == "Transmissie" else str(1)
+
         self.row = 0
         self.build_settings()
 
+        self.parent.savecfg_to_config()
         self.parent.pause_meas()
         self.parent.start_meas()
         return None
 
     def reset_options(self):
         config = cp.ConfigParser()
-        config.read("../src/cfg_variable.config")
+        config.read("../src/cfg_standard.config")
         self.parent.measurementtype = config["Algemeen"]["typemeting"]
 
         self.parent.nrofmeasurements = config["Algemeen"]["nmetingen"]
@@ -229,10 +285,12 @@ class Settings(tk.Toplevel):
         self.parent.std = config["VasteParameters"]["std"]
         self.parent.path2ref = config["VasteParameters"]["path_to_ref"]
 
+        self.parent.nrofmeasurementsstudent = config["StudentMeting"]["measurement"]
+        self.parent.student_measurementtime = config["StudentMeting"]["measurement_time"]
+        self.parent.student_measurementtype = config["StudentMeting"]["measurement_type"]
+
         self.row = 0
         self.build_settings()
-        self.parent.pause_meas()
-        self.parent.start_meas()
 
     def destroy(self) -> None:
         self.__class__.alive = False
