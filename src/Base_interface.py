@@ -1,6 +1,6 @@
 
 # Dit gaat een basis class vormen die kunnen worden gelinked aan
-# classes in physics_interface.py en Student_interface.py
+# classes in physics_interface.py en Student_Interface.py
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -10,6 +10,7 @@ import tkinter as tk
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationToolbar2Tk)
 
 from Physics_Interface import Base_physics
+from Student_Interface import Student_start_measurement
 
 class Base_interface(tk.Tk):
     """
@@ -48,7 +49,7 @@ class Base_interface(tk.Tk):
 
         # Vars
         # Link naar het volgende scherm (student)
-        self.student_startup = None
+        self.student_startup = Student_start_measurement
         # Link naar het volgende scherm (physics)
         self.physics_link = Base_physics
 
@@ -62,7 +63,11 @@ class Base_interface(tk.Tk):
 
     def student_button(self, linked_event):
         def on_action():
-            linked_event()
+            from src.Physics_Interface.Physics_interface import generate_data, single_data
+
+            st = self.student_startup()
+            st.data_source = generate_data
+            st.data_source_single = single_data
             self.destroy()
 
         button = tk.Button(self, text="Student", command=on_action)

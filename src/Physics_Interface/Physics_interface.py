@@ -17,6 +17,7 @@ from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg,
 # Import the various windows
 from src.Physics_Interface.Physics_interface_Settings import Settings
 from src.Physics_Interface.Physics_interface_DataManipulation import LoadData, SaveData
+from src.Student_Interface.Student_interface import Student_start_measurement
 
 global number_of_samples
 try:
@@ -63,12 +64,10 @@ except Exception as e:
 
         data_arr = np.zeros([nmeasurements, 3])
 
-        print(nmeasurements)
-
         for i in range(nmeasurements):
             d, t, s = np.random.randint(0, 100), meastime*(i+1) + tref, np.random.randint(0, 100)
             data_arr[i] = np.array([d, t, s])
-        print(data_arr)
+
         return data_arr[:, 1], data_arr[:, 0]
 
     def single_data(tref):
@@ -129,7 +128,7 @@ class Base_physics(tk.Tk):
         shape = 100
         self.xaxis = self.data_time = np.zeros(1)
         self.yaxis = self.data_voltage = np.zeros(1)
-        print(self.xaxis)
+
         self.data_time[-1] = self.tref
 
         # Read the config and update the vars
@@ -188,7 +187,7 @@ class Base_physics(tk.Tk):
                       buttons=True,
                       commands=[
                           [self.reset_data, self.start_meas, self.pause_meas],
-                          [self.save_data, self.start_settings, self.pause_meas]])
+                          [self.save_data, self.start_settings, self.start_student_measurement]])
 
         self.job = self.update_vars(
             [str(np.random.randint(10)) for i in range(6)])
@@ -540,11 +539,15 @@ class Base_physics(tk.Tk):
     def start_student_measurement(self):
         self.pause_meas()
 
+        st = Student_start_measurement()
+        st.data_source = generate_data
+        st.data_source_single = single_data
+
 
     def destroy(self) -> None:
         self.pause_meas()
         self.fig.clear()
-        
+
         try:
             super().destroy()
         except tk.TclError:
