@@ -194,6 +194,7 @@ class Settings(tk.Toplevel):
     def save_options(self):
         self.parent.nrofmeasurements = str(self.Entry_ndatapoints.get())
         self.parent.measurementtype = str(0) if self.selectie_typmeet.get() == "N-samples" else str(1)
+
         self.parent.xastype = str(0) if self.selectie_grafiek_xas.get() == "Tijd" else str(1)
         sel_yas = self.selectie_grafiek_yas.get()
         self.parent.yastype = str(0) if sel_yas == "Spanning (V)" else str(1) if sel_yas == "Intensiteit" else str(2) if sel_yas == "Transmissie" else str(3)
@@ -205,12 +206,15 @@ class Settings(tk.Toplevel):
         self.row = 0
         self.build_settings()
 
+        self.parent.pause_meas()
+        self.parent.start_meas()
         return None
 
     def reset_options(self):
         config = cp.ConfigParser()
         config.read("../src/cfg_variable.config")
         self.parent.measurementtype = config["Algemeen"]["typemeting"]
+
         self.parent.nrofmeasurements = config["Algemeen"]["nmetingen"]
 
         self.parent.msperframe = config["Grafiek"]["MsPerFrame"]
@@ -227,6 +231,9 @@ class Settings(tk.Toplevel):
 
         self.row = 0
         self.build_settings()
+        self.parent.pause_meas()
+        self.parent.start_meas()
+
     def destroy(self) -> None:
         self.__class__.alive = False
         return super().destroy()

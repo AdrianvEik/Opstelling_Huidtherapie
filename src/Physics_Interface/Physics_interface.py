@@ -17,12 +17,13 @@ from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg,
 from src.Physics_Interface.Physics_interface_Settings import Settings
 from src.Physics_Interface.Physics_interface_DataManipulation import LoadData, SaveData
 
+global number_of_samples
 try:
     from src.Hardware import ADCReader
     adc_reader = ADCReader()
     # Hier iets wat voor nu data genereert om aan te leveren aan Base_interface
     # Dit is een test functie
-    def generate_data() -> Tuple[np.ndarray, np.ndarray]:
+    def generate_data(samples, tref) -> Tuple[np.ndarray, np.ndarray]:
         """
         Genereer data voor de GUI
 
@@ -30,10 +31,10 @@ try:
         """
         global adc_reader
         # Maak een array aan van data over de tijd, sleep is om te simuleren dat het even duurt
-        nmeasurements = 100  # n nr of meas
+        nmeasurements = samples  # n nr of meas
         meastime = 0.01  # t per meas
 
-        tstart = time()
+        tstart = tref
 
         data_arr = np.zeros([nmeasurements, 3])
         for i in range(nmeasurements):
@@ -41,27 +42,47 @@ try:
             data_arr[i] = np.array([d, t, s])
         # Return tijd, data
         return data_arr[:, 1], data_arr[:, 0]
+
+    def single_sample():
+        global adc_reader
+        return adc_reader.read_adc()
+
 except Exception as e:
     print(e)
 
-    def generate_data() -> Tuple[np.ndarray, np.ndarray]:
+    def generate_data(samples, tref) -> Tuple[np.ndarray, np.ndarray]:
         """
         Genereer data voor de GUI
         :return: tijd, data
         """
         # Maak een array aan van data over de tijd, sleep is om te simuleren dat het even duurt
-        data = np.random.rand(100)
-        # Return tijd, data
-        return np.linspace(0, 1, 100), data
+
+        nmeasurements = samples  # n nr of meas
+        meastime = 0.01  # t per meas
+
+        data_arr = np.zeros([nmeasurements, 3])
+
+        print(nmeasurements)
+
+        for i in range(nmeasurements):
+            d, t, s = np.random.randint(0, 100), meastime*(i+1) + tref, np.random.randint(0, 100)
+            data_arr[i] = np.array([d, t, s])
+        print(data_arr)
+        return data_arr[:, 1], data_arr[:, 0]
+
+    def single_data(tref):
+        meastime = 0.01
+        return np.array([meastime+tref, np.random.randint(0, 100)], dtype=float)
 
 
 
 class Base_physics(tk.Tk):
     def __init__(self):
         super().__init__()
+
         # Config path
         self.config_path = "../src/cfg_variable.config"
-        print(self.config_path)
+
         # Titel boven de GUI
         self.title("Technisch interface")
 
@@ -75,6 +96,9 @@ class Base_physics(tk.Tk):
         # Global row counter
         self.row = 0
         self.rowfig = 0
+
+        self.time_start = time()
+        self.tref = 0
 
         ## Vars
         # Algemeen
@@ -97,30 +121,22 @@ class Base_physics(tk.Tk):
 
         # Initialise base data arrays
         shape = 100
-        self.data_time = np.zeros(shape)
-        self.data_voltage = np.zeros(shape)
+        self.xaxis = self.data_time = np.zeros(shape)
+        self.yaxis = self.data_voltage = np.zeros(shape)
+        self.data_time[-1] = self.tref
 
         # Read the config and update the vars
         self.initialise_config_data()
-        print(self.path2ref)
-        
+
         # Load and read reference data
-        self.refdata = np.loadtxt("../data/reference.txt", dtype=float)
+        # "../data/reference.txt"
+        self.refdata = np.loadtxt(self.path2ref, dtype=float)
         self.refavg = np.average(self.refdata[:, 0])
         self.refstd = np.std(self.refdata[:, 0])
         
         # Settings link
         self.settings_link = Settings
         self.settings_open = None
-
-        # Data acquisititie methode
-        # Afhankelijk van de instellingen in de config file wordt dit aangepast
-        if self.measurementtype == None:
-            self.acquisition_method = generate_data  # returns time, data (np.ndarray)
-        elif self.measurementtype == "0":
-            self.acquisition_method = generate_data  # returns time, data (np.ndarray)
-        elif self.measurementtype == "1":
-            self.acquisition_method = generate_data  # returns time, data (np.ndarray)
 
         ## Build GUI
         # Figsize
@@ -165,7 +181,7 @@ class Base_physics(tk.Tk):
                       buttons=True,
                       commands=[
                           [self.load_data, self.start_meas, self.pause_meas],
-                          [self.save_data, self.start_settings, self.results]])
+                          [self.save_data, self.start_settings, self.pause_meas]])
 
         self.job = self.update_vars(
             [str(np.random.randint(10)) for i in range(6)])
@@ -188,7 +204,7 @@ class Base_physics(tk.Tk):
         self.msperframe = config["Grafiek"]["MsPerFrame"]
         self.xastype = config["Grafiek"]["Grafiektypex"]
         self.yastype = config["Grafiek"]["Grafiektypey"]
-        print(self.yastype)
+
         self.stepsize = config["Grafiek"]["Stapsgrootte"]
 
         self.msperdata = config["RTData"]["MsPerData"]
@@ -216,10 +232,19 @@ class Base_physics(tk.Tk):
         self.fig = plt.Figure(figsize=self.figsize, dpi=100)
         self.fig.suptitle("Test")
 
+        # x-labels
+        x_labels = ["Tijd $t$ [s]", "Metingen $n$ [-]"]
+        y_labels = ["Voltage $V$ [V]", "Intensiteit $I$ [mW/cm$^2$]", "Transmissie $T$ [-]", "Optische dichtheid $OD$ [-]"]
+
         # Maak een subplot aan
         self.ax = self.fig.add_subplot(111)
+
         # Maak een plot aan
-        self.line, = self.ax.plot(self.data_time, self.data_voltage)
+        self.line, = self.ax.plot(self.xaxis, self.yaxis, linestyle="-", marker="o")
+
+        self.ax.set_xlabel(x_labels[int(self.xastype)])
+        self.ax.set_ylabel(y_labels[int(self.yastype)])
+
         # Maak een canvas aan
         canvas = FigureCanvasTkAgg(self.fig, master=self)
 
@@ -237,11 +262,11 @@ class Base_physics(tk.Tk):
         return None
 
     def animate(self, i):
-        self.line.set_xdata(self.data_time)
-        self.line.set_ydata(self.data_voltage)
+        self.line.set_xdata(self.xaxis)
+        self.line.set_ydata(self.yaxis)
 
-        self.ax.set_xlim(min(self.data_time), max(self.data_time))
-        self.ax.set_ylim(min(self.data_voltage), max(self.data_voltage))
+        self.ax.set_xlim(min(self.xaxis), max(self.xaxis))
+        self.ax.set_ylim(min(self.yaxis), max(self.yaxis))
         return self.line,
 
     def data_box(self, txt_labels: List[List[str]],
@@ -333,15 +358,7 @@ class Base_physics(tk.Tk):
                     edit_state or buttons or updated) else None
 
     # Data acquisitie methodes
-    def read_realtime_data(self, *args) -> str:
-        """
-        Lees enkele punten uit en voeg toe aan de bestaande array (meting=0)
-        :param args:
-        :return:
-        """
-        return str(np.random.randint(10))
-
-    def read_ndatapoints(self, *args) -> List[str]:
+    def read_ndatapoints(self) -> List[str]:
         """
         Lees n punten uit en ververs de bestaande array (meting=1)
         :param args:
@@ -367,7 +384,6 @@ class Base_physics(tk.Tk):
         """
         if len(args) == 1:
             args = [args[0]]
-        print(args)
         # self.graph_topleft(args[0]())
         for en in range(len(self.vals)):
             self.vals[en].set(args[0][en])
@@ -377,9 +393,30 @@ class Base_physics(tk.Tk):
 
         # self.animate(1)
 
-        data_time, data_voltage = generate_data()
-        self.data_voltage = data_voltage
-        self.data_time = data_time
+        if self.measurementtype == str(0):
+            self.data_time, self.data_voltage = generate_data(int(self.nrofmeasurements), tref=self.data_time[-1])
+        else:
+            data = single_data(self.data_time[-1])
+
+            self.data_time = np.append(self.data_time, data[0])
+            self.data_voltage = np.append(self.data_voltage, data[1])
+
+        if self.xastype == str(0):
+            data_time = self.data_time
+        elif self.xastype == str(1):
+            data_time = list(range(len(self.data_time)))
+
+        if self.yastype == str(0):
+            data_voltage = self.data_voltage
+        elif self.yastype == str(1):
+            data_voltage = self.calculate_intesnity(self.data_voltage)
+        elif self.yastype == str(2):
+            data_voltage = self.calculate_intesnity(self.data_voltage)/self.refavg
+        elif self.yastype == str(3):
+            data_voltage = np.log10(np.abs(self.refavg/self.calculate_intesnity(self.data_voltage)))
+
+        self.xaxis = data_time
+        self.yaxis = data_voltage
 
         job = self.after(1000, self.update_vars,
                          self.read_ndatapoints())  # 1000ms = 1s
@@ -387,15 +424,6 @@ class Base_physics(tk.Tk):
         return job
 
     # Gelinkte functies
-    def get_data(self):
-        # This function should be called to request data from the hardware.py file
-        # And format it to be used in the graph/real time data
-
-        # This is a placeholder
-
-        # Wellicht functie als dit in hardware.py?
-        # return should contain (tijd, data, avg, hardware informatie [voltage, laatst gelezen waarde, int value, etc.])
-        return None
 
     def calculate_intesnity(self, x):
         # https://learn.sparkfun.com/tutorials/ml8511-uv-sensor-hookup-guide/all
@@ -407,15 +435,10 @@ class Base_physics(tk.Tk):
         return "NaN"
 
     def save_data(self):
-        print("sv")
         if not SaveData.alive:
             sv = SaveData(self)
             sv.load_data_from_main(self.data_time, self.data_voltage, self.calculate_intesnity(self.data_voltage))
         return "data saved"
-
-    def results(self):
-        print("rs")
-        return "results"
 
     def pause_meas(self):
         """
@@ -424,8 +447,6 @@ class Base_physics(tk.Tk):
         :return: None
         """
         # Stop de meting, als er een meting loopt
-        print(self.job)
-        print(self.call("after", "info"))
         if self.job is not None:
             # Zoek de exacte job en stop deze met after_cancel
             jobs = self.call("after", "info")
@@ -445,8 +466,7 @@ class Base_physics(tk.Tk):
         # Check of er al een meting loopt
         if self.job is None:
             self.graph_topleft()
-            self.job = self.update_vars(
-                [str(np.random.randint(10)) for i in range(6)])
+            self.job = self.update_vars(self.read_ndatapoints())
 
         return None
 
@@ -460,7 +480,13 @@ class Base_physics(tk.Tk):
         if not Settings.alive:
             self.settings_open = Settings(self)
 
+
         return None
+
+    def destroy(self) -> None:
+        self.pause_meas()
+        self.fig.clear()
+        return super().destroy()
 
 
 
