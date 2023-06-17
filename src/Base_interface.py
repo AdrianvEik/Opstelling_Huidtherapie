@@ -9,7 +9,7 @@ import tkinter as tk
 
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationToolbar2Tk)
 
-from Physics_interface import Base_physics
+from Physics_Interface import Base_physics
 
 class Base_interface(tk.Tk):
     """

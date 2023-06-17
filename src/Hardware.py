@@ -64,7 +64,7 @@ class ADCReader:
     def show_measure(self):
         while True:
             print(
-                "{:>5}\t{:>5.3f}\t{:>5.6f}".format(*self.get_meas(1, 0.1, 3)))
+                "{:>5}\t{:>5.3f}\t{:>5.8f}".format(*self.get_meas(1, 0.1, 3)))
 
 
 if __name__ == "__main__":
@@ -82,9 +82,17 @@ if __name__ == "__main__":
         tstart = time.time()
 
         data_arr = np.zeros([nmeasurements, 3])
+        print("meting start!")
         for i in range(nmeasurements):
             d, t, s = adc_reader.get_meas(25, meastime, start_time=tstart)
             data_arr[i] = np.array([d, t, s])
+        
+        print("meting stopt!")
+
         np.savetxt(path, data_arr)
 
         return data_arr
+    
+    data = save_to_txt("../data/reference.txt")
+    plt.errorbar(data[:, 1], data[:, 0], yerr=data[:, 2], fmt="ro", capsize=5)
+    plt.show()
