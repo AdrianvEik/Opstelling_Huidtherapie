@@ -121,8 +121,9 @@ class Base_physics(tk.Tk):
 
         # Initialise base data arrays
         shape = 100
-        self.xaxis = self.data_time = np.zeros(shape)
-        self.yaxis = self.data_voltage = np.zeros(shape)
+        self.xaxis = self.data_time = np.zeros(1)
+        self.yaxis = self.data_voltage = np.zeros(1)
+        print(self.xaxis)
         self.data_time[-1] = self.tref
 
         # Read the config and update the vars
@@ -169,18 +170,18 @@ class Base_physics(tk.Tk):
         self.data_box([["Label 1", "Label 11", "label12", "label13"],
                        ["Label 2", "label 21", "label 22", "label 23"]],
                       [["0", "1", "2", "3"], ["0", "1", "2", "3"]],
-                      "Meest recent ingelezen data")
+                      "Resultaten studentmeting")
 
         # Buttons
-        self.data_box([["Data inladen", "Meting verichten", "Meting stoppen"],
+        self.data_box([["Reset data", "Meting verichten", "Meting stoppen"],
                        ["Data opslaan", "Meet instellingen aanpassen",
-                        "Grafiek opslaan"]],
+                        "Student meting starten"]],
                       [["Laad", "Start", "Stop"],
-                       ["Opslaan", "Instellingen", "Opslaan"]],
+                       ["Opslaan", "Instellingen", "Start"]],
                       "Hieronder staan enkele knoppen voor data verwerking.",
                       buttons=True,
                       commands=[
-                          [self.load_data, self.start_meas, self.pause_meas],
+                          [self.reset_data, self.start_meas, self.pause_meas],
                           [self.save_data, self.start_settings, self.pause_meas]])
 
         self.job = self.update_vars(
@@ -230,7 +231,7 @@ class Base_physics(tk.Tk):
 
         # Maak een figuur aan
         self.fig = plt.Figure(figsize=self.figsize, dpi=100)
-        self.fig.suptitle("Test")
+        # self.fig.suptitle("Test")
 
         # x-labels
         x_labels = ["Tijd $t$ [s]", "Metingen $n$ [-]"]
@@ -418,6 +419,8 @@ class Base_physics(tk.Tk):
         self.xaxis = data_time
         self.yaxis = data_voltage
 
+        print(self.call("after", "info"))
+
         job = self.after(1000, self.update_vars,
                          self.read_ndatapoints())  # 1000ms = 1s
 
@@ -430,9 +433,16 @@ class Base_physics(tk.Tk):
         # Linear equation between 0 and 15mW/cm^2 and 1 and 3 V output
         return (x-0.99) * 15/2 + 1
 
-    def load_data(self):
-        print("ld")
-        return "NaN"
+    def reset_data(self):
+
+        self.pause_meas()
+
+        self.xaxis = self.data_time = np.zeros(1)
+        self.yaxis = self.data_voltage = np.zeros(1)
+
+        self.start_meas()
+
+        return None
 
     def save_data(self):
         if not SaveData.alive:
@@ -482,6 +492,10 @@ class Base_physics(tk.Tk):
 
 
         return None
+
+    def start_student_measurement(self):
+        self.pause_meas()
+
 
     def destroy(self) -> None:
         self.pause_meas()

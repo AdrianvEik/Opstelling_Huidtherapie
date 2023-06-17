@@ -78,7 +78,7 @@ class SaveData(tk.Toplevel):
         if path == "":
             path = "../data"
 
-        data_arr = np.array([self.datax, self.datay, self.stdy]).T
+        data_arr = np.array([self.datax[1:], self.datay[1:], self.stdy[1:]]).T
 
         np.savetxt(path+"/"+filename+".txt", data_arr)
 
