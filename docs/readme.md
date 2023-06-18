@@ -19,3 +19,5 @@ Het interface biedt twee keuzes, het meten van de transmissie van zonnebrandcrè
 of stof (Student) en het uitlezen van data over de sensor voor bugfixing 
 (Physics). De interface is geschreven in python met behulp van de tkinter
 library. Het figuur hieronder laat het initiële scherm zien.
+
+![alt text](
