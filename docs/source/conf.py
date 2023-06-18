@@ -21,7 +21,7 @@ for mod_name in MOCK_MODULES:
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'compute_3d'
+project = 'src'
 copyright = '2023, Adrian van Eik'
 author = 'Adrian van Eik'
 release = '0.1'
