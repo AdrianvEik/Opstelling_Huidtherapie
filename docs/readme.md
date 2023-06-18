@@ -1,4 +1,6 @@
 # Project medische technologie
+De uitgebreide documentatie is te vinden op: \
+https://opstelling-huidtherapie.readthedocs.io/en/latest/
 
 ## Introductie tot de software
 
