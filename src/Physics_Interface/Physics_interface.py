@@ -25,7 +25,7 @@ try:
     adc_reader = ADCReader()
     # Hier iets wat voor nu data genereert om aan te leveren aan Base_interface
     # Dit is een test functie
-    def generate_data(samples, tref) -> Tuple[np.ndarray, np.ndarray]:
+    def generate_data(samples, tref, meastime=0.01) -> Tuple[np.ndarray, np.ndarray]:
         """
         Genereer data voor de GUI
 
@@ -50,9 +50,8 @@ try:
         return adc_reader.read_adc()
 
 except Exception as e:
-    print(e)
 
-    def generate_data(samples, tref) -> Tuple[np.ndarray, np.ndarray]:
+    def generate_data(samples, tref, meastime: float = 0.01) -> Tuple[np.ndarray, np.ndarray]:
         """
         Genereer data voor de GUI
         :return: tijd, data
@@ -60,12 +59,13 @@ except Exception as e:
         # Maak een array aan van data over de tijd, sleep is om te simuleren dat het even duurt
 
         nmeasurements = samples  # n nr of meas
-        meastime = 0.01  # t per meas
+        # meastime t per meas
 
         data_arr = np.zeros([nmeasurements, 3])
 
         for i in range(nmeasurements):
-            d, t, s = np.random.randint(0, 100), meastime*(i+1) + tref, np.random.randint(0, 100)
+            d, t, s = np.random.randint(0, 7), meastime*(i+1) + tref, np.random.randint(0, 100)
+
             data_arr[i] = np.array([d, t, s])
 
         return data_arr[:, 1], data_arr[:, 0]
@@ -123,6 +123,7 @@ class Base_physics(tk.Tk):
         self.nrofmeasurementsstudent = None
         self.student_measurementtime = None
         self.student_measurementtype = None
+        self.student_meas_marge = None
 
         # Initialise base data arrays
         shape = 100
@@ -189,8 +190,7 @@ class Base_physics(tk.Tk):
                           [self.reset_data, self.start_meas, self.pause_meas],
                           [self.save_data, self.start_settings, self.start_student_measurement]])
 
-        self.job = self.update_vars(
-            [str(np.random.randint(10)) for i in range(6)])
+        self.job = self.update_vars([str(np.random.randint(10)) for i in range(6)])
 
         return None
 
@@ -227,6 +227,7 @@ class Base_physics(tk.Tk):
         self.nrofmeasurementsstudent = config["StudentMeting"]["measurement"]
         self.student_measurementtime = config["StudentMeting"]["measurement_time"]
         self.student_measurementtype = config["StudentMeting"]["measurement_type"]
+        self.student_meas_marge = config["StudentMeting"]["marge_student_verify"]
 
     def savecfg_to_config(self):
         """
@@ -254,7 +255,8 @@ class Base_physics(tk.Tk):
 
         config["StudentMeting"] = {"measurement": self.nrofmeasurementsstudent,
                                        "measurement_time": self.student_measurementtime,
-                                         "measurement_type": self.student_measurementtype}
+                                         "measurement_type": self.student_measurementtype,
+                                           "marge_student_verify": self.student_meas_marge}
 
         with open(self.config_path, "w") as config_file:
             config.write(config_file)
@@ -543,6 +545,7 @@ class Base_physics(tk.Tk):
         st.data_source = generate_data
         st.data_source_single = single_data
 
+        st.measure_frame(st.verification_measurement, result_function=st.update_startup)
 
     def destroy(self) -> None:
         self.pause_meas()

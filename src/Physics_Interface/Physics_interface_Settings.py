@@ -228,6 +228,19 @@ class Settings(tk.Toplevel):
 
         framerow += 1
 
+        label_marge_student = ttk.Label(master=frame, text="Marge [V]")
+        label_marge_student.grid(row=framerow, column=0, sticky="NSEW",
+                                columnspan=1,
+                                rowspan=1, padx=[0, 50])
+
+        self.Entry_marge_student = tk.Entry(master=frame)
+        self.Entry_marge_student.insert(0, self.parent.student_meas_marge)
+        self.Entry_marge_student.grid(row=framerow, column=1, sticky="NSEW",
+                                    columnspan=1,
+                                    rowspan=1)
+
+        framerow += 1
+
 
         button_save = ttk.Button(master=frame, text="Opslaan", command=self.save_options)
         button_save.grid(row=framerow, column=0, sticky="NSEW", columnspan=1,
@@ -235,6 +248,7 @@ class Settings(tk.Toplevel):
         button_cancel = ttk.Button(master=frame, text="Reset", command=self.reset_options)
         button_cancel.grid(row=framerow, column=1, sticky="NSEW", columnspan=1,
                         rowspan=1)
+
 
 
         frame.grid(row=self.row, column=0, sticky="NSEW", columnspan=1,
@@ -257,6 +271,7 @@ class Settings(tk.Toplevel):
         self.parent.nrofmeasurementsstudent = str(self.Entry_ndatapoints_student.get())
         self.parent.student_measurementtime = str(self.Entry_meettijdstudent.get())
         self.parent.student_measurementtype = str(0) if self.selectie_typmeetstudent.get() == "Transmissie" else str(1)
+        self.parent.student_meas_marge = str(self.Entry_marge_student.get())
 
         self.row = 0
         self.build_settings()
@@ -288,6 +303,8 @@ class Settings(tk.Toplevel):
         self.parent.nrofmeasurementsstudent = config["StudentMeting"]["measurement"]
         self.parent.student_measurementtime = config["StudentMeting"]["measurement_time"]
         self.parent.student_measurementtype = config["StudentMeting"]["measurement_type"]
+        self.student_meas_marge = config["StudentMeting"]["marge_student_verify"]
+
 
         self.row = 0
         self.build_settings()

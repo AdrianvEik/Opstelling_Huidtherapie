@@ -7,6 +7,9 @@ import matplotlib.pyplot as plt
 import os
 import tkinter as tk
 
+from threading import Thread
+from queue import Queue
+
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationToolbar2Tk)
 
 from Physics_Interface import Base_physics
@@ -68,7 +71,12 @@ class Base_interface(tk.Tk):
             st = self.student_startup()
             st.data_source = generate_data
             st.data_source_single = single_data
+
+            st.measure_frame(st.verification_measurement,
+                             result_function=st.update_startup)
             self.destroy()
+
+
 
         button = tk.Button(self, text="Student", command=on_action)
         # Pas pad aan voor positie en niet col of row
