@@ -15,11 +15,6 @@ from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg,
                                                NavigationToolbar2Tk)
 
 
-class LoadData(tk.Toplevel):
-
-    def __init__(self, parent):
-        super().__init__(parent)
-
 class SaveData(tk.Toplevel):
     "Window to save data to a path and filename"
 

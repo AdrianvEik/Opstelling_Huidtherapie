@@ -13,7 +13,6 @@ try:
 except ImportError:
     pass
 
-# parent = tk.Tk() if __name__ == "__main__" else tk.Toplevel()
 class Student_start_measurement(tk.Tk):
 
     def __init__(self):
@@ -83,7 +82,7 @@ class Student_start_measurement(tk.Tk):
         except Empty:
             self.after(100, self.await_results, queue, function)
             result = None
-        print(result)
+
         if result is not None:
             function(result)
             with queue.mutex:

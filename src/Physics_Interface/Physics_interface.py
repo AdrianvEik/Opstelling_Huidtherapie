@@ -16,7 +16,7 @@ from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg,
 
 # Import the various windows
 from src.Physics_Interface.Physics_interface_Settings import Settings
-from src.Physics_Interface.Physics_interface_DataManipulation import LoadData, SaveData
+from src.Physics_Interface.Physics_interface_DataManipulation import SaveData
 from src.Student_Interface.Student_interface import Student_start_measurement
 
 global number_of_samples
@@ -546,7 +546,6 @@ class Base_physics(tk.Tk):
         st.data_source_single = single_data
 
         st.measure_frame(st.verification_measurement, result_function=st.update_startup)
-
     def destroy(self) -> None:
         self.pause_meas()
         self.fig.clear()
