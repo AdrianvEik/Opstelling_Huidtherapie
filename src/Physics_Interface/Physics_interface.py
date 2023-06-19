@@ -132,8 +132,12 @@ class Base_physics(tk.Tk):
 
         self.data_time[-1] = self.tref
 
+        self.student_voltage = np.zeros(shape)
+        self.student_time = np.zeros(shape)
+
         # Read the config and update the vars
         self.initialise_config_data()
+        self.read_student_measurement()
 
         # Load and read reference data
         # "../data/reference.txt"
@@ -159,7 +163,7 @@ class Base_physics(tk.Tk):
 
         # Build the right side of the GUI
         avg = str(np.average(self.data_voltage))
-        
+
         # Updated real time data
         self.var_labels = [[str(self.data_voltage[-1]), str(np.average(self.data_voltage)), "2", "3"], ["0", "1", "2", "3"]]
         upd, vals = self.data_box(
@@ -173,10 +177,13 @@ class Base_physics(tk.Tk):
         self.upd = upd[2:]
 
         # Not changing data
-        self.data_box([["Label 1", "Label 11", "label12", "label13"],
+        upd_st, vals_st = self.data_box([["Label 1", "Label 11", "label12", "label13"],
                        ["Label 2", "label 21", "label 22", "label 23"]],
                       [["0", "1", "2", "3"], ["0", "1", "2", "3"]],
-                      "Resultaten studentmeting")
+                      "Resultaten studentmeting", updated=True)
+
+        self.upd_st = upd_st[2:]
+        self.vals_st = vals_st
 
         # Buttons
         self.data_box([["Reset data", "Meting verichten", "Meting stoppen"],
@@ -190,7 +197,7 @@ class Base_physics(tk.Tk):
                           [self.reset_data, self.start_meas, self.pause_meas],
                           [self.save_data, self.start_settings, self.start_student_measurement]])
 
-        self.job = self.update_vars([str(np.random.randint(10)) for i in range(6)])
+        self.job = self.update_vars(self.read_ndatapoints(), self.update_student_measurement())
 
         return None
 
@@ -261,14 +268,12 @@ class Base_physics(tk.Tk):
         with open(self.config_path, "w") as config_file:
             config.write(config_file)
 
-    def update_config_data(self):
-        """
-        Update de data in de config file, en update gelijk de attributen
-        met nieuwe waarden geselecteerd door de gebruiker in de settings window.
 
-        :return: None
-        """
-        pass
+    def read_student_measurement(self):
+        data = np.loadtxt("MeestRecenteMeting.txt", delimiter=" ")
+        self.student_voltage = data[:, 1]
+        self.student_time = data[:, 0]
+
 
     # Frames en opbouw van de GUI
     def graph_topleft(self):
@@ -420,6 +425,15 @@ class Base_physics(tk.Tk):
                 "{:>5.6f}".format(self.calculate_intesnity(avg)),
                 str(0), transmissie, np.log10(1/transmissie)]
 
+    def update_student_measurement(self):
+        avg, std = np.average(self.student_voltage), np.std(self.student_voltage)
+        transmissie = avg/self.refavg
+
+        return ["{:>5.6f}".format(self.student_voltage[-1]),
+                "{:>5.6f} ± {:>5.4f}".format(avg, std),
+                "{:>5.6f}".format(self.calculate_intesnity(avg)),
+                str(0), transmissie, np.log10(1/transmissie)]
+
     # Real time data verwerking en after methode
     def update_vars(self, *args) -> str:
         """
@@ -432,12 +446,21 @@ class Base_physics(tk.Tk):
         """
         if len(args) == 1:
             args = [args[0]]
+
+        self.read_student_measurement() # Dure functie, zou beter in student en dan via inheritance kunnen
+
         # self.graph_topleft(args[0]())
         for en in range(len(self.vals)):
             self.vals[en].set(args[0][en])
             self.upd[en].config(state="normal")
             self.upd[en].setvar(str(self.vals[en]), str(self.vals[en].get()))
             self.upd[en].config(state="readonly")
+
+            # Dit is duur, maar het werkt
+            self.vals_st[en].set(args[1][en])
+            self.upd_st[en].config(state="normal")
+            self.upd_st[en].setvar(str(self.vals_st[en]), str(self.vals_st[en].get()))
+            self.upd_st[en].config(state="readonly")
 
         # self.animate(1)
 
@@ -467,7 +490,7 @@ class Base_physics(tk.Tk):
         self.yaxis = data_voltage
 
         job = self.after(1000, self.update_vars,
-                         self.read_ndatapoints())  # 1000ms = 1s
+                         self.read_ndatapoints(), self.update_student_measurement())  # 1000ms = 1s
 
         return job
 
@@ -521,7 +544,7 @@ class Base_physics(tk.Tk):
         # Check of er al een meting loopt
         if self.job is None:
             self.graph_topleft()
-            self.job = self.update_vars(self.read_ndatapoints())
+            self.job = self.update_vars(self.read_ndatapoints(), self.update_student_measurement())
 
         return None
 
@@ -546,6 +569,7 @@ class Base_physics(tk.Tk):
         st.data_source_single = single_data
 
         st.measure_frame(st.verification_measurement, result_function=st.update_startup)
+
     def destroy(self) -> None:
         self.pause_meas()
         self.fig.clear()

@@ -147,6 +147,7 @@ class Student_start_measurement(tk.Tk):
     def result_analysis(self, result):
 
         calculated_result = np.average(result[1])
+        self.write_to_txt(np.array(result).T)
 
         self.verification_start.config(text="Resultaat meting: {0}".format(calculated_result))
         self.progress_bar.stop()
@@ -177,3 +178,6 @@ class Student_start_measurement(tk.Tk):
         self.student_measurementtime = config["StudentMeting"]["measurement_time"]
         self.student_measurementtype = config["StudentMeting"]["measurement_type"]
         self.marge = float(config["StudentMeting"]["marge_student_verify"])
+
+    def write_to_txt(self, array):
+        np.savetxt("MeestRecenteMeting.txt", array, fmt="%s")
