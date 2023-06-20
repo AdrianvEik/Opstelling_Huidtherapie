@@ -4,8 +4,22 @@
 API
 ###
 
+Basis interface
+===============
+
+Het eerste keuzescherm bevat twee keuzes voor de gebruiker. De gebruiker kan kiezen tussen een studentenmeting of een
+meting met de volledige functionaliteit. De studentenmeting is een vereenvoudigde versie van de meting met de volledige
+functionaliteit.
+
+De class met zijn methodes en attributen gebruikt voor dit scherm staan hieronder.
+
+.. automodule:: src.Basis_interface
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Physics Interface
------------------
+=================
 
 Het hoofdscherm van de applicatie is de Physics Interface. Hierin kan de gebruiker de meting instellen en uitvoeren.
 De inteface bestaat uit verschillende knoppen met functionaliteiten. Hieruit kunnen mogelijk 3 andere schermen worden geopend:
@@ -20,6 +34,7 @@ atributen en methodes van de physics intefrace.
    :members:
    :undoc-members:
    :show-inheritance:
+
 
 Measurement Settings
 --------------------
@@ -57,6 +72,24 @@ snelle meting of hiermee grafieken in andere programma's te maken. De save funct
 het pad naar de directory waar het wordt opgeslagen en de naam van het bestand.
 
 .. automodule:: src.Physics_Interface.Physics_interface_DataManipulation
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Student Measurement interface
+=============================
+
+Aanvankelijk wordt de opstelling geverifieerd. Dit gebeurt zodra de knop "Student" in het basis
+interface wordt ingedrukt. Dit verifieering gebeurt in een aparte thread om ervoor te zorgen dat
+de GUI niet bevriest. Het gemiddelde van de referentie meting wordt vergeleken met de reference file aangegeven
+in de instellingen zoals laten zien hiervoor in de Measurement Settings. Als de gemiddelde waarde binnen de marge
+valt wordt komt de student in het metingscherm. In de code wordt hiervoor het scherm ververst met nieuwe labels
+en wordt de lopende balk verwijderd. Als de student op start meting drukt wordt de meting gestart,
+en uitgevoerd in een aparte thread. Het resultaat wordt dan laten zien. De queue is gedeeld tussen de threads
+om data te verzamelen en te laten zien in de grafiek. De student kan de meting stoppen door het programma te sluiten of de stop
+knop in te drukken.
+
+.. automodule:: src.Student_Interface.Student_interface
    :members:
    :undoc-members:
    :show-inheritance:

@@ -1,2 +1,2 @@
 
-from src.Student_Interface.Student_interface import Student_start_measurement
+from Student_Interface.Student_interface import Student_start_measurement

@@ -66,7 +66,7 @@ class Base_interface(tk.Tk):
 
     def student_button(self, linked_event):
         def on_action():
-            from src.Physics_Interface.Physics_interface import generate_data, single_data
+            from Physics_Interface.Physics_interface import generate_data, single_data
 
             st = self.student_startup()
             st.data_source = generate_data

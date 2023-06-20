@@ -15,13 +15,13 @@ from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg,
                                                NavigationToolbar2Tk)
 
 # Import the various windows
-from src.Physics_Interface.Physics_interface_Settings import Settings
-from src.Physics_Interface.Physics_interface_DataManipulation import SaveData
-from src.Student_Interface.Student_interface import Student_start_measurement
+from Physics_Interface.Physics_interface_Settings import Settings
+from Physics_Interface.Physics_interface_DataManipulation import SaveData
+from Student_Interface.Student_interface import Student_start_measurement
 
 global number_of_samples
 try:
-    from src.Hardware import ADCReader
+    from Hardware import ADCReader
     adc_reader = ADCReader()
     # Hier iets wat voor nu data genereert om aan te leveren aan Base_interface
     # Dit is een test functie
@@ -40,14 +40,14 @@ try:
 
         data_arr = np.zeros([nmeasurements, 3])
         for i in range(nmeasurements):
-            d, t, s = adc_reader.get_meas(1, meastime, start_time=tstart)
+            d, t, s = adc_reader.get_meas(1, meastime, start_time=0)
             data_arr[i] = np.array([d, t, s])
         # Return tijd, data
         return data_arr[:, 1], data_arr[:, 0]
 
-    def single_sample():
+    def single_data(tref: float):
         global adc_reader
-        return adc_reader.read_adc()
+        return time(), adc_reader.read_adc()[1]
 
 except Exception as e:
 
@@ -64,15 +64,14 @@ except Exception as e:
         data_arr = np.zeros([nmeasurements, 3])
 
         for i in range(nmeasurements):
-            d, t, s = np.random.randint(0, 7), meastime*(i+1) + tref, np.random.randint(0, 100)
-
+            d, t, s = np.random.randint(0, 7), time(), np.random.randint(0, 100)
+            sleep(0.01)
             data_arr[i] = np.array([d, t, s])
 
         return data_arr[:, 1], data_arr[:, 0]
 
     def single_data(tref):
-        meastime = 0.01
-        return np.array([meastime+tref, np.random.randint(0, 100)], dtype=float)
+        return np.array([time(), np.random.randint(0, 7)], dtype=float)
 
 
 
@@ -130,8 +129,6 @@ class Base_physics(tk.Tk):
         self.xaxis = self.data_time = np.zeros(1)
         self.yaxis = self.data_voltage = np.zeros(1)
 
-        self.data_time[-1] = self.tref
-
         self.student_voltage = np.zeros(shape)
         self.student_time = np.zeros(shape)
 
@@ -158,6 +155,15 @@ class Base_physics(tk.Tk):
         self.Build_GUI_physics()
 
     def Build_GUI_physics(self):
+        """"
+        Bouw de GUI op en voeg de volgende elementen toe:
+            - De linker helft van het scherm wordt opgevuld met een grafiek
+              dit wordt gedaan met de functie ..py:class Base_physics.graph_topleft
+            - De rechter helft van het scherm wordt opgevuld met een aantal
+              'tabellen' met meetwaarden en resultaten van de realtime data
+              en de meest recente student meting (die is opgeslagen in een file)
+        De tabellen worden gemaakt met de functie ..py:class Base_physics.data_box
+        """
 
         self.graph_topleft()
 
@@ -328,13 +334,43 @@ class Base_physics(tk.Tk):
                  edit_state: bool = False, commands: List = None,
                  updated: bool = False) -> List[tk.Entry] or None:
         """
-        Data box with 2x3 data cells where each cell has a label and an entry
-        :param txt_labels: List of labels [[row], [row]]
-        :param entries: List of entries [[row], [row]]
-        :param buttons: True, entries become buttons
-        :param edit_state: True if the entries need to be editable
-        :param commands: List of commands for the buttons
-        :return: List of entries or buttons if edit_state or buttons is True
+        Een tabel met 2x3 entries en hieraan een label met uitleg, boven de box
+        met entries/labels staat een label met uitleg welke ook meegegeven kan
+        worden. De entries kunnen ook buttons zijn met een gekoppelde command.
+
+        Voorbeeld om de variabelen verder in het script te kunnen updaten:
+
+        .. code-block:: python
+        for entry in range(len(stringvars)):
+            stringvars[en].set(stringvars[entry]) # Update de stringvars
+            # configureer de entries om nieuwe waarden te accepteren
+            entries_list[en].config(state="normal")
+            # Vul de nieuwe waarden van de stringvar in in de entries
+            entries_list[en].setvar(str(stringvars[en]), str(stringvars.get()))
+            # Maak de entries weer readonly
+            entries_list.config(state="readonly")
+
+
+        :param txt_labels: Lijst van labels voor de entries gegeven als [[labels van row 1], [labels van row 2]]
+        :type txt_labels: List[List[str]]
+
+        :param entries: Lijst van, standaard ingevulde waarden, voor de entries in het zelfde format als txt_labels deze kunen geupdate worden als updated True is.
+        :type entries: List[List[str or float]]
+
+        :param buttons: True als de entries buttons moeten zijn, hierbij wordt de entries parameter gebruikt als de labels weergegeven in de entry.
+        :type buttons: bool
+
+        :param edit_state: True als de entries aangepast moeten kunnen worden, False als de entries niet aangepast mogen worden. Hierbij kan user input gevraagd worden.
+        :type edit_state: bool
+
+        :param updated: True als de entries geupdate moeten kunenn worden via de entries en stringvars die worden meegegeven in de return, False als de entries niet geupdate moeten worden.
+
+        :param commands: Alleen van toepassing als buttons True is, dit is een lijst van commando's die gekoppeld zijn aan de buttons in hetzelfde format als txt_labels en entries.
+        :type commands: List[List[Callable]]
+
+        :return: In het geval dat edit_state, update of buttons true is worden de signatures van de entries en de tk.StringVar van de ingevulde waardes teruggegeven.
+        :rtype: Tuple[List[tk.Entry], List[tk.StringVar]] or None
+
         """
         # Maak een label aan
         text_src = explain_text
@@ -466,12 +502,13 @@ class Base_physics(tk.Tk):
 
         if self.measurementtype == str(0):
             self.data_time, self.data_voltage = generate_data(int(self.nrofmeasurements), tref=self.data_time[-1])
+            self.data_time -= self.time_start
         else:
             data = single_data(self.data_time[-1])
 
-            self.data_time = np.append(self.data_time, data[0])
+            self.data_time = np.append(self.data_time, data[0] - self.time_start) 
             self.data_voltage = np.append(self.data_voltage, data[1])
-
+        
         if self.xastype == str(0):
             data_time = self.data_time
         elif self.xastype == str(1):
@@ -506,7 +543,9 @@ class Base_physics(tk.Tk):
         self.pause_meas()
 
         self.xaxis = self.data_time = np.zeros(1)
-        self.yaxis = self.data_voltage = np.zeros(1)
+        self.yaxis = self.data_voltage = np.full(1, self.data_voltage[-1])
+        
+        self.time_start = time()
 
         self.start_meas()
 

@@ -56,7 +56,7 @@ class Student_start_measurement(tk.Tk):
         """Display a frame wih a progress bar while a thread is running"""
         for child in self.frame.winfo_children():
             child.destroy()
-
+        print(label_text)
         self.frame_row = 0
 
         self.verification_start = tk.Label(master=self.frame, text=label_text)
@@ -134,6 +134,7 @@ class Student_start_measurement(tk.Tk):
             queue.put(False)
 
     def measurement_start(self):
+        print("Measurment!")
         self.measure_frame(self.measurement, label_text="Meten...",
                            result_function=self.result_analysis)
 
@@ -155,8 +156,8 @@ class Student_start_measurement(tk.Tk):
         self.frame_row += 1
 
         self.button_opnieuw = ttk.Button(master=self.frame, text="Opnieuw meten",
-                                            command=lambda: self.measure_frame(self.measurement,
-                                                                                result_function=self.result_analysis))
+                                            command=lambda: self.measure_frame(self.measurement, label_text="Meten...",
+                                                                               result_function=self.result_analysis))
         self.button_opnieuw.grid(row=self.frame_row, column=0, sticky="NSEW",
                                     columnspan=1,
                                     rowspan=1)
