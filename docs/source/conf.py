@@ -32,6 +32,12 @@ release = '0.1'
 extensions = ['sphinx.ext.autodoc', 'sphinx.ext.coverage', 'sphinx.ext.napoleon',
               'sphinx.ext.autosectionlabel','sphinx.ext.intersphinx']
 
+autodoc_default_options = {
+    'members':         True,
+    'member-order':    'bysource',
+    'special-members': '__init__',
+}
+
 templates_path = ['_templates']
 exclude_patterns = []
 

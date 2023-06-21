@@ -13,7 +13,7 @@ functionaliteit.
 
 De class met zijn methodes en attributen gebruikt voor dit scherm staan hieronder.
 
-.. automodule:: src.Basis_interface
+.. automodule:: src.Base_interface
    :members:
    :undoc-members:
    :show-inheritance:

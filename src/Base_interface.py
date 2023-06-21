@@ -12,8 +12,8 @@ from queue import Queue
 
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationToolbar2Tk)
 
-from Physics_Interface import Base_physics
-from Student_Interface import Student_start_measurement
+from src.Physics_Interface.Physics_interface import Base_physics
+from src.Student_Interface.Student_interface import Student_start_measurement
 
 class Base_interface(tk.Tk):
     """

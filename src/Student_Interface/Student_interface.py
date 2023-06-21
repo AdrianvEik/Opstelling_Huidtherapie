@@ -9,7 +9,7 @@ from queue import Queue, Empty
 from threading import Thread
 
 try:
-    from src.Physics_Interface.Physics_interface import generate_data, single_data
+    from Physics_Interface.Physics_interface import generate_data, single_data
 except ImportError:
     pass
 

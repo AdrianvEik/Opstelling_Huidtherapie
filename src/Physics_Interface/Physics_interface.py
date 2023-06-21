@@ -15,9 +15,9 @@ from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg,
                                                NavigationToolbar2Tk)
 
 # Import the various windows
-from Physics_Interface.Physics_interface_Settings import Settings
-from Physics_Interface.Physics_interface_DataManipulation import SaveData
-from Student_Interface.Student_interface import Student_start_measurement
+from src.Physics_Interface.Physics_interface_Settings import Settings
+from src.Physics_Interface.Physics_interface_DataManipulation import SaveData
+from src.Student_Interface.Student_interface import Student_start_measurement
 
 global number_of_samples
 try:
@@ -76,65 +76,94 @@ except Exception as e:
 
 
 class Base_physics(tk.Tk):
+    """
+    Eerste start scherm, alles wat direct wordt gebruikt kan niet na instantiatie worden aangepast
+    maar zou direct in de code moeten worden aangepast. Deze waarden staan dus
+    gehardcode in de code.
+    """
     def __init__(self):
         super().__init__()
 
-        # Config path
         self.config_path = "../src/cfg_variable.config"
+        """Pad naar configuratie bestand, wordt direct in de __init__ gebruikt"""
 
-        # Titel boven de GUI
         self.title("Technisch interface")
 
-        # Grootte van de GUI in px
         self.geom = (900, 600)
+        """Geometrie van het scherm, wordt direct in de __init__ gebruikt"""
+
         self.geometry("%sx%s" % self.geom)
 
         # Niet resizable
         self.resizable(False, False)
 
-        # Global row counter
         self.row = 0
+        """Row counter voor de rechter helft, wordt gebruikt om de positie van de widgets te bepalen"""
+
         self.rowfig = 0
+        """Row counter voor de linker helft, wordt gebruikt om de positie van het figuur te bepalen"""
+
 
         self.time_start = time()
+        """Referentie tijd die van self.data_time wordt afgehaald om naar seconden te rekenen"""
+
         self.tref = 0
 
         ## Vars
         # Algemeen
         self.measurementtype = None
+        """Type meting uit de config, 0 is een meting van N-punten 1 is een conitinue meting"""
+
         self.nrofmeasurements = None
+        """Aantal metingen per meetserie voor meettype 0"""
 
         # Grafiek
         self.msperframe = None
+        """Verversingstijd van de grafiek in ms"""
+
         self.xastype = None
+        """Type van de x-as, 0 is tijd, 1 is samples"""
         self.yastype = None
+        """Type van de y-as, 0 is spanning, 1 is intensiteit, 2 is transmissie, 3 is OD-waarde"""
         self.stepsize = None
+        """Stapgrootte van de x-as, wordt gebruikt voor het bepalen van de x-as"""
 
         # RTdata
         self.msperdata = None
+        """Verversingstijd van de realtime data in ms"""
 
         # Vaste parameters
         self.adc2v = None
         self.std = None
+        """Standaarddeviatie van de metingen in std * sigma"""
         self.path2ref = None
+        """Pad naar het referentie bestand"""
 
         # Student parameters
         self.nrofmeasurementsstudent = None
+        """Aantal metingen per meetserie"""
         self.student_measurementtime = None
+        """Tijd tussen metingen voor een studentmeting"""
         self.student_measurementtype = None
+        """Type meting uit de config, 0 is een meting met als resultaat transmissie en 1 met OD waarde"""
         self.student_meas_marge = None
+        """Marge voor de verificatie meting voordat een student meting is gestart"""
 
         # Initialise base data arrays
         shape = 100
         self.xaxis = self.data_time = np.zeros(1)
+        """Tijd array voor data verwerking en plotten"""
         self.yaxis = self.data_voltage = np.zeros(1)
+        """Voltage array voor data verwerking en plotten"""
 
         self.student_voltage = np.zeros(shape)
+        """Voltage array voor student metingen, wordt gebruikt voor dataanlyse van meest recente data"""
         self.student_time = np.zeros(shape)
+        """Tijd array voor student metingen, wordt gebruikt voor dataanlyse van meest recente data"""
 
         # Read the config and update the vars
-        self.initialise_config_data()
-        self.read_student_measurement()
+        self.initialise_config_data() # Update config variables
+        self.read_student_measurement() # Update student measurement data arrays
 
         # Load and read reference data
         # "../data/reference.txt"
@@ -152,6 +181,7 @@ class Base_physics(tk.Tk):
         self.figsize = (
         self.geom[0] / (2 * self.dpi), self.geom[1] / (self.dpi))
 
+        # Build the GUI
         self.Build_GUI_physics()
 
     def Build_GUI_physics(self):
@@ -210,8 +240,9 @@ class Base_physics(tk.Tk):
     # Configuratie methods
     def initialise_config_data(self) -> None:
         """
-        Initialiseer de data uit de config file
-        en koppel deze aan de juiste attributen.
+        Lees de config file ui, het pad hiernaartoe is eerder gedefinieerd
+        en hard coded om te voorkomen dat er problemen ontstaan met het
+        vinden en uitlezen van de config file.
 
         :return: None
         """
@@ -244,7 +275,8 @@ class Base_physics(tk.Tk):
 
     def savecfg_to_config(self):
         """
-        Save the current config to the config file.
+        Converteer alle variabelen naar een config met de ConfigParser module
+        en schrijf deze weg naar de variabele config.
 
         :return: None
         """
@@ -276,6 +308,9 @@ class Base_physics(tk.Tk):
 
 
     def read_student_measurement(self):
+        """
+        Lees het pad met de student meting uit, hardcoded.
+        """
         data = np.loadtxt("MeestRecenteMeting.txt", delimiter=" ")
         self.student_voltage = data[:, 1]
         self.student_time = data[:, 0]
@@ -284,7 +319,11 @@ class Base_physics(tk.Tk):
     # Frames en opbouw van de GUI
     def graph_topleft(self):
         """
-        Graph in the top left corner
+        Maak een grafiek en plaats deze in de linkerhelft van de GUI.
+        De grafiek is een animatie om de data real time te kunnen plotten. Deze
+        animatie wordt aangestuurd door de functie self.animate().
+
+        :return: None
         """
 
         # Maak een figuur aan
@@ -321,6 +360,13 @@ class Base_physics(tk.Tk):
         return None
 
     def animate(self, i):
+        """
+        Functie die de data van de grafiek update. De data wordt uit de attributes
+        self.xaxis en self.yaxis gehaald welke worden geupdate door de functie
+        self.update_vars().
+        :param i:
+        :return:
+        """
         self.line.set_xdata(self.xaxis)
         self.line.set_ydata(self.yaxis)
 
@@ -341,14 +387,15 @@ class Base_physics(tk.Tk):
         Voorbeeld om de variabelen verder in het script te kunnen updaten:
 
         .. code-block:: python
-        for entry in range(len(stringvars)):
-            stringvars[en].set(stringvars[entry]) # Update de stringvars
-            # configureer de entries om nieuwe waarden te accepteren
-            entries_list[en].config(state="normal")
-            # Vul de nieuwe waarden van de stringvar in in de entries
-            entries_list[en].setvar(str(stringvars[en]), str(stringvars.get()))
-            # Maak de entries weer readonly
-            entries_list.config(state="readonly")
+
+            for entry in range(len(stringvars)):
+                stringvars[en].set(stringvars[entry]) # Update de stringvars
+                # configureer de entries om nieuwe waarden te accepteren
+                entries_list[en].config(state="normal")
+                # Vul de nieuwe waarden van de stringvar in in de entries
+                entries_list[en].setvar(str(stringvars[en]), str(stringvars.get()))
+                # Maak de entries weer readonly
+                entries_list.config(state="readonly")
 
 
         :param txt_labels: Lijst van labels voor de entries gegeven als [[labels van row 1], [labels van row 2]]
@@ -449,9 +496,21 @@ class Base_physics(tk.Tk):
     # Data acquisitie methodes
     def read_ndatapoints(self) -> List[str]:
         """
-        Lees n punten uit en ververs de bestaande array (meting=1)
-        :param args:
-        :return:
+        Verwerk de binnengekomen data van de ADC die in de self.data_voltage
+        en bereken hiermee  de transmissie, intensiteit en OD waarde. Voor
+        de OD waarde en transmissie wordt de referentie file gebruikt die staat
+        gespecificeerd in de instellingen. De return is 6 strings voor de
+        data_box.
+
+        Lijst van strings:
+         - Laasts gemeten voltage
+         - Gemiddelde voltage +- standaard deviatie
+         - Intensiteit (via ..python:func:`calculate_intesnity`)
+         - Transmissie (gemeten intensiteit/ ref intensiteit)
+         - OD waarde (log10(1/transmissie))
+
+        :return: Een lijst van strings met de waardes van voltage, transmissie, intensiteit en OD waarde.
+        :rtype: List[str]
         """
         avg, std = np.average(self.data_voltage), np.std(self.data_voltage)
         transmissie = avg/self.refavg
@@ -473,12 +532,24 @@ class Base_physics(tk.Tk):
     # Real time data verwerking en after methode
     def update_vars(self, *args) -> str:
         """
-        Update the variables in the GUI
+        Functie die iedere 1000ms wordt aangeroepen en de data van de ADC
+        verwerkt en de data boxen/grafiek update. Eerst worden alle variablen
+        geupdate in de data boxen vervolgenswordt de as berekend a.d.h.v. de
+        self.data_voltage en de self.data_time en gegeven instellingen uit config.
 
-        :param args[0]: Function that generates the data
-        :param args[1]: Data points for all 6 boxes
+        Volgorde van verloop:
 
-        :return: None
+        1. Lees de meest recente studentmeting uit, 'MeesteRecenteMeting.txt'
+        2. Voor alle 6 de data entries in de recente meting en student box wordt de waarde geupdate volgens de volgorde in *args
+        3. Verwerk de data uit de meest recente meting naar behoren van instellingen voor de x-as en y-as
+        4. Roep de functie voor het updaten van de plot in de grafiek aan
+        5. Roep recursief deze functie aan iedere 1000ms
+
+        :param args[0]: Lijst met verwerkte meest recente data uitgelezen uit de ADC
+        :param args[1]: Lijst met meest recent ingelezen data uit de studentmeting
+
+        :return: De naam van de Job aangemaakt via deze functie
+        :rtype: str
         """
         if len(args) == 1:
             args = [args[0]]

@@ -1,6 +1,6 @@
 
 from Base_interface import *
-from Physics_Interface import Base_physics
+from src.Physics_Interface.Physics_interface import Base_physics
 
 def startup_basic_test():
     """
