@@ -219,8 +219,8 @@ class Base_physics(tk.Tk):
         self.upd = upd[2:]
 
         # Not changing data
-        upd_st, vals_st = self.data_box([["Label 1", "Label 11", "label12", "label13"],
-                       ["Label 2", "label 21", "label 22", "label 23"]],
+        upd_st, vals_st = self.data_box([["Voltage", "Gemmidelde waarde", "Resultaat"],
+                        ["UV-index", "Transmissie", "OD-waarde"]],
                       [["0", "1", "2", "3"], ["0", "1", "2", "3"]],
                       "Resultaten studentmeting", updated=True)
 
@@ -231,7 +231,7 @@ class Base_physics(tk.Tk):
         self.data_box([["Reset data", "Meting verichten", "Meting stoppen"],
                        ["Data opslaan", "Meet instellingen aanpassen",
                         "Student meting starten"]],
-                      [["Laad", "Start", "Stop"],
+                      [["Reset", "Start", "Stop"],
                        ["Opslaan", "Instellingen", "Start"]],
                       "Hieronder staan enkele knoppen voor data verwerking.",
                       buttons=True,
