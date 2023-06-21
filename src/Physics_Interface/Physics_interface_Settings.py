@@ -119,13 +119,25 @@ class Settings(tk.Toplevel):
 
         framerow += 1
 
-        label_vervmeting = ttk.Label(master=frame, text="Vervesingssnelheid metingen [ms]")
+        label_vervmeting = ttk.Label(master=frame, text="Meettijd [ms]")
         label_vervmeting.grid(row=framerow, column=0, sticky="NSEW",
                                 columnspan=1,
                                 rowspan=1, padx=[0, 50])
         self.entry_vervmeting = tk.Entry(master=frame)
         self.entry_vervmeting.insert(0, self.parent.msperframe)
         self.entry_vervmeting.grid(row=framerow, column=1, sticky="NSEW",
+                                columnspan=1,
+                                rowspan=1)
+
+        framerow += 1
+
+        label_vervdata = ttk.Label(master=frame, text="Verversingstijd [ms]")
+        label_vervdata.grid(row=framerow, column=0, sticky="NSEW",
+                                columnspan=1,
+                                rowspan=1, padx=[0, 50])
+        self.entry_vervdata = tk.Entry(master=frame)
+        self.entry_vervdata.insert(0, self.parent.msperdata)
+        self.entry_vervdata.grid(row=framerow, column=1, sticky="NSEW",
                                 columnspan=1,
                                 rowspan=1)
 
@@ -264,6 +276,7 @@ class Settings(tk.Toplevel):
         sel_yas = self.selectie_grafiek_yas.get()
         self.parent.yastype = str(0) if sel_yas == "Spanning (V)" else str(1) if sel_yas == "Intensiteit" else str(2) if sel_yas == "Transmissie" else str(3)
         self.parent.msperframe = str(self.entry_vervmeting.get())
+        self.parent.msperdata = str(self.entry_vervdata.get())
         self.parent.stepsize = str(self.entry_stapsgrootte.get())
         self.parent.std = str(self.entry_sigma_factor.get())
         self.parent.path2ref = self.entry_path2ref.get()
@@ -289,6 +302,7 @@ class Settings(tk.Toplevel):
         self.parent.nrofmeasurements = config["Algemeen"]["nmetingen"]
 
         self.parent.msperframe = config["Grafiek"]["MsPerFrame"]
+        self.parent.msperdata = config["RTData"]["MsPerData"]
         self.parent.xastype = config["Grafiek"]["Grafiektypex"]
         self.parent.yastype = config["Grafiek"]["Grafiektypey"]
 

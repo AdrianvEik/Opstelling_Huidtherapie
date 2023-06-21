@@ -2,7 +2,8 @@ import sys
 from time import sleep, time
 from typing import Tuple, List
 import configparser as cp
-import os
+import threading
+import queue
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -25,7 +26,7 @@ try:
     adc_reader = ADCReader()
     # Hier iets wat voor nu data genereert om aan te leveren aan Base_interface
     # Dit is een test functie
-    def generate_data(samples, tref, meastime=0.01) -> Tuple[np.ndarray, np.ndarray]:
+    def generate_data(samples, meastime=0.01) -> Tuple[np.ndarray, np.ndarray]:
         """
         Genereer data voor de GUI
 
@@ -34,9 +35,7 @@ try:
         global adc_reader
         # Maak een array aan van data over de tijd, sleep is om te simuleren dat het even duurt
         nmeasurements = samples  # n nr of meas
-        meastime = 0.01  # t per meas
 
-        tstart = tref
 
         data_arr = np.zeros([nmeasurements, 3])
         for i in range(nmeasurements):
@@ -51,7 +50,7 @@ try:
 
 except Exception as e:
 
-    def generate_data(samples, tref, meastime: float = 0.01) -> Tuple[np.ndarray, np.ndarray]:
+    def generate_data(samples, meastime: float = 0.01) -> Tuple[np.ndarray, np.ndarray]:
         """
         Genereer data voor de GUI
         :return: tijd, data
@@ -65,7 +64,7 @@ except Exception as e:
 
         for i in range(nmeasurements):
             d, t, s = np.random.randint(0, 7), time(), np.random.randint(0, 100)
-            sleep(0.01)
+            sleep(meastime)
             data_arr[i] = np.array([d, t, s])
 
         return data_arr[:, 1], data_arr[:, 0]
@@ -83,6 +82,9 @@ class Base_physics(tk.Tk):
     """
     def __init__(self):
         super().__init__()
+
+        self.queue = queue.Queue()
+        self.thread = None
 
         self.config_path = "../src/cfg_variable.config"
         """Pad naar configuratie bestand, wordt direct in de __init__ gebruikt"""
@@ -150,7 +152,7 @@ class Base_physics(tk.Tk):
         """Marge voor de verificatie meting voordat een student meting is gestart"""
 
         # Initialise base data arrays
-        shape = 100
+        shape = 1000
         self.xaxis = self.data_time = np.zeros(1)
         """Tijd array voor data verwerking en plotten"""
         self.yaxis = self.data_voltage = np.zeros(1)
@@ -160,6 +162,8 @@ class Base_physics(tk.Tk):
         """Voltage array voor student metingen, wordt gebruikt voor dataanlyse van meest recente data"""
         self.student_time = np.zeros(shape)
         """Tijd array voor student metingen, wordt gebruikt voor dataanlyse van meest recente data"""
+        self.prev_student_voltage = np.zeros(shape)
+        self.prev_student_time = np.zeros(shape)
 
         # Read the config and update the vars
         self.initialise_config_data() # Update config variables
@@ -181,10 +185,10 @@ class Base_physics(tk.Tk):
         self.figsize = (
         self.geom[0] / (2 * self.dpi), self.geom[1] / (self.dpi))
 
-        # Build the GUI
         self.Build_GUI_physics()
 
-    def Build_GUI_physics(self):
+
+    def Build_GUI_physics(self, updated=True):
         """"
         Bouw de GUI op en voeg de volgende elementen toe:
             - De linker helft van het scherm wordt opgevuld met een grafiek
@@ -193,6 +197,11 @@ class Base_physics(tk.Tk):
               'tabellen' met meetwaarden en resultaten van de realtime data
               en de meest recente student meting (die is opgeslagen in een file)
         De tabellen worden gemaakt met de functie ..py:class Base_physics.data_box
+
+        :param updated: True om de update job te starten aan het einde van het opbouwen van de GUI. Voor bugfixing
+        :type updated: bool
+
+        :return: None
         """
 
         self.graph_topleft()
@@ -233,7 +242,14 @@ class Base_physics(tk.Tk):
                           [self.reset_data, self.start_meas, self.pause_meas],
                           [self.save_data, self.start_settings, self.start_student_measurement]])
 
-        self.job = self.update_vars(self.read_ndatapoints(), self.update_student_measurement())
+        self.thread = threading.Thread(target=self.measurement_thread, args=(
+                                        self.queue, self.time_start, self.measurementtype,
+                                        self.nrofmeasurements, self.data_time[-1], self.data_time,
+                                        self.data_voltage))
+
+        if updated:
+            self.thread.start()
+            self.job = self.update_vars(self.read_ndatapoints(), self.update_student_measurement())
 
         return None
 
@@ -309,11 +325,19 @@ class Base_physics(tk.Tk):
 
     def read_student_measurement(self):
         """
-        Lees het pad met de student meting uit, hardcoded.
+        Lees het pad met de student meting uit, hardcoded. Als er geen verandering
+        in de data is, return dan False, anders return True.
+
+        :return: Wel of geen verandering in de data
+        :rtype: bool
         """
+        self.prev_student_time = self.student_time
+        self.prev_student_voltage = self.student_voltage
         data = np.loadtxt("MeestRecenteMeting.txt", delimiter=" ")
         self.student_voltage = data[:, 1]
         self.student_time = data[:, 0]
+
+        return np.all(np.abs(self.student_time - self.prev_student_time) < 0.001)
 
 
     # Frames en opbouw van de GUI
@@ -529,6 +553,24 @@ class Base_physics(tk.Tk):
                 "{:>5.6f}".format(self.calculate_intesnity(avg)),
                 str(0), transmissie, np.log10(1/transmissie)]
 
+    def measurement_thread(self, q, tstart, measurementtype, nrofmeasurements,
+                           last_time, prev_data_time, prev_data_voltage,
+                           meas_time=0.01):
+        if measurementtype == str(0):
+            data_time, data_voltage = generate_data(
+                int(nrofmeasurements))
+            data_time -= tstart
+        else:
+            data = single_data(last_time)
+
+            data_time = np.append(prev_data_time, data[0] - tstart)
+            data_voltage = np.append(prev_data_voltage, data[1])
+
+        intensity = self.calculate_intesnity(data_voltage)
+
+        q.put([data_time, data_voltage, intensity])
+        return None
+
     # Real time data verwerking en after methode
     def update_vars(self, *args) -> str:
         """
@@ -554,56 +596,65 @@ class Base_physics(tk.Tk):
         if len(args) == 1:
             args = [args[0]]
 
-        self.read_student_measurement() # Dure functie, zou beter in student en dan via inheritance kunnen
+        if self.read_student_measurement():  # TODO: nagaan of dit echt sneller is dan iedere keer updaten
+            for en in range(len(self.vals)):
+                self.vals_st[en].set(args[1][en])
+                self.upd_st[en].config(state="normal")
+                self.upd_st[en].setvar(str(self.vals_st[en]),
+                                       str(self.vals_st[en].get()))
+                self.upd_st[en].config(state="readonly")
 
-        # self.graph_topleft(args[0]())
-        for en in range(len(self.vals)):
-            self.vals[en].set(args[0][en])
-            self.upd[en].config(state="normal")
-            self.upd[en].setvar(str(self.vals[en]), str(self.vals[en].get()))
-            self.upd[en].config(state="readonly")
+        print(self.thread.is_alive())
+        if self.thread.is_alive():
+            pass
 
-            # Dit is duur, maar het werkt
-            self.vals_st[en].set(args[1][en])
-            self.upd_st[en].config(state="normal")
-            self.upd_st[en].setvar(str(self.vals_st[en]), str(self.vals_st[en].get()))
-            self.upd_st[en].config(state="readonly")
-
-        # self.animate(1)
-
-        if self.measurementtype == str(0):
-            self.data_time, self.data_voltage = generate_data(int(self.nrofmeasurements), tref=self.data_time[-1])
-            self.data_time -= self.time_start
         else:
-            data = single_data(self.data_time[-1])
+            data_time, data_voltage, intensity = self.queue.get(block=False)
 
-            self.data_time = np.append(self.data_time, data[0] - self.time_start) 
-            self.data_voltage = np.append(self.data_voltage, data[1])
-        
-        if self.xastype == str(0):
-            data_time = self.data_time
-        elif self.xastype == str(1):
-            data_time = list(range(len(self.data_time)))
+            self.data_time = data_time
+            self.data_voltage = data_voltage
 
-        if self.yastype == str(0):
-            data_voltage = self.data_voltage
-        elif self.yastype == str(1):
-            data_voltage = self.calculate_intesnity(self.data_voltage)
-        elif self.yastype == str(2):
-            data_voltage = self.calculate_intesnity(self.data_voltage)/self.refavg
-        elif self.yastype == str(3):
-            data_voltage = np.log10(np.abs(self.refavg/self.calculate_intesnity(self.data_voltage)))
+            data_time_axis = self.data_time
+            data_voltage_axis = self.data_voltage
 
-        self.xaxis = data_time
-        self.yaxis = data_voltage
+            if self.xastype == str(0):
+                data_time_axis = self.data_time
+            elif self.xastype == str(1):
+                data_time_axis = list(range(len(self.data_time)))
 
-        job = self.after(1000, self.update_vars,
+            if self.yastype == str(0):
+                data_voltage_axis = self.data_voltage
+            elif self.yastype == str(1):
+                data_voltage_axis = intensity
+            elif self.yastype == str(2):
+                data_voltage_axis = self.calculate_intesnity(self.data_voltage)/self.refavg
+            elif self.yastype == str(3):
+                data_voltage_axis = np.log10(np.abs(self.refavg/self.calculate_intesnity(self.data_voltage)))
+
+            self.xaxis = data_time_axis
+            self.yaxis = data_voltage_axis
+
+            # self.graph_topleft(args[0]())
+            for en in range(len(self.vals)):
+                self.vals[en].set(args[0][en])
+                self.upd[en].config(state="normal")
+                self.upd[en].setvar(str(self.vals[en]), str(self.vals[en].get()))
+                self.upd[en].config(state="readonly")
+
+
+            self.thread = threading.Thread(target=self.measurement_thread,
+                                           args=(self.queue, self.time_start,
+                                                 self.measurementtype, self.nrofmeasurements,
+                                                 self.data_time[-1], self.data_time,
+                                                 self.data_voltage, float(self.nrofmeasurements)/float(self.msperframe)))
+            self.thread.start()
+
+        job = self.after(self.msperdata, self.update_vars,
                          self.read_ndatapoints(), self.update_student_measurement())  # 1000ms = 1s
 
         return job
 
     # Gelinkte functies
-
     def calculate_intesnity(self, x):
         # https://learn.sparkfun.com/tutorials/ml8511-uv-sensor-hookup-guide/all
         # Linear equation between 0 and 15mW/cm^2 and 1 and 3 V output

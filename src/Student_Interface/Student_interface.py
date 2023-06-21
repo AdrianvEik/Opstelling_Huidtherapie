@@ -1,3 +1,4 @@
+import sys
 import threading
 import time
 import tkinter as tk
@@ -7,6 +8,7 @@ import configparser as cp
 
 from queue import Queue, Empty
 from threading import Thread
+
 
 try:
     from Physics_Interface.Physics_interface import generate_data, single_data
@@ -56,7 +58,7 @@ class Student_start_measurement(tk.Tk):
         """Display a frame wih a progress bar while a thread is running"""
         for child in self.frame.winfo_children():
             child.destroy()
-        print(label_text)
+
         self.frame_row = 0
 
         self.verification_start = tk.Label(master=self.frame, text=label_text)
@@ -72,7 +74,8 @@ class Student_start_measurement(tk.Tk):
 
         self.frame.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
 
-        threading.Thread(target=targfunction, args=(self.queue,)).start()
+        self.thread = Thread(target=targfunction, args=(self.queue,))
+        self.thread.start()
 
         self.await_results(self.queue, function=result_function)
 
@@ -138,10 +141,13 @@ class Student_start_measurement(tk.Tk):
         self.measure_frame(self.measurement, label_text="Meten...",
                            result_function=self.result_analysis)
 
+
+
     def measurement(self, queue=None):
         """Start a measurement"""
-        data = self.data_source(int(self.nrofmeasurementsstudent), time.time(),
-                                meastime=float(self.student_measurementtime))
+        print(int(self.nrofmeasurementsstudent), float(self.nrofmeasurementsstudent)/float(self.student_measurementtime))
+        data = self.data_source(int(self.nrofmeasurementsstudent),
+                                meastime=float(self.nrofmeasurementsstudent)/(float(self.student_measurementtime) * 1000))
 
         queue.put(data)
 
@@ -182,3 +188,11 @@ class Student_start_measurement(tk.Tk):
 
     def write_to_txt(self, array):
         np.savetxt("MeestRecenteMeting.txt", array, fmt="%s")
+
+    def stop_measurement(self):
+
+        self.verification_start.config(text="Opstarten gelukt!")
+        self.progress_bar.stop()
+        self.progress_bar.destroy()
+        self.frame_row += 1
+
