@@ -46,7 +46,7 @@ try:
 
     def single_data(tref: float):
         global adc_reader
-        return time(), adc_reader.read_adc()[1]
+        return time(), adc_reader.voltage
 
 except Exception as e:
 
@@ -127,15 +127,12 @@ class Base_physics(tk.Tk):
         """Type van de x-as, 0 is tijd, 1 is samples"""
         self.yastype = None
         """Type van de y-as, 0 is spanning, 1 is intensiteit, 2 is transmissie, 3 is OD-waarde"""
-        self.stepsize = None
-        """Stapgrootte van de x-as, wordt gebruikt voor het bepalen van de x-as"""
 
         # RTdata
         self.msperdata = None
         """Verversingstijd van de realtime data in ms"""
 
         # Vaste parameters
-        self.adc2v = None
         self.std = None
         """Standaarddeviatie van de metingen in std * sigma"""
         self.path2ref = None
@@ -245,7 +242,7 @@ class Base_physics(tk.Tk):
         self.thread = threading.Thread(target=self.measurement_thread, args=(
                                         self.queue, self.time_start, self.measurementtype,
                                         self.nrofmeasurements, self.data_time[-1], self.data_time,
-                                        self.data_voltage))
+                                        self.data_voltage, float(self.msperframe)/(float(self.nrofmeasurements)*1000)))
 
         if updated:
             self.thread.start()
@@ -276,11 +273,8 @@ class Base_physics(tk.Tk):
         # y-as: 0 = voltage, 1 = intensiteit, 2 = transmissie ,3 = OD
         self.yastype = config["Grafiek"]["Grafiektypey"]
 
-        self.stepsize = config["Grafiek"]["Stapsgrootte"]
-
         self.msperdata = config["RTData"]["MsPerData"]
 
-        self.adc2v = config["VasteParameters"]["ADC2V"]
         self.std = config["VasteParameters"]["std"]
         self.path2ref = config["VasteParameters"]["path_to_ref"]
 
@@ -304,15 +298,13 @@ class Base_physics(tk.Tk):
 
         config["Grafiek"] = {"MsPerFrame": self.msperframe,
                                "Grafiektypex": self.xastype,
-                                 "Grafiektypey": self.yastype,
-                                    "Stapsgrootte": self.stepsize}
+                                 "Grafiektypey": self.yastype}
 
 
         config["RTData"] = {"MsPerData": self.msperdata}
 
-        config["VasteParameters"] = {"ADC2V": self.adc2v,
-                                        "std": self.std,
-                                          "path_to_ref": self.path2ref}
+        config["VasteParameters"] = {"std": self.std,
+                                        "path_to_ref": self.path2ref}
 
         config["StudentMeting"] = {"measurement": self.nrofmeasurementsstudent,
                                        "measurement_time": self.student_measurementtime,
@@ -360,6 +352,7 @@ class Base_physics(tk.Tk):
 
         # Maak een subplot aan
         self.ax = self.fig.add_subplot(111)
+        self.ax.grid(True, axis="y")
 
         # Maak een plot aan
         self.line, = self.ax.plot(self.xaxis, self.yaxis, linestyle="-", marker="o")
@@ -394,8 +387,14 @@ class Base_physics(tk.Tk):
         self.line.set_xdata(self.xaxis)
         self.line.set_ydata(self.yaxis)
 
-        self.ax.set_xlim(min(self.xaxis), max(self.xaxis))
-        self.ax.set_ylim(min(self.yaxis), max(self.yaxis))
+        min_x, max_x = min(self.xaxis), max(self.xaxis)
+        min_y, max_y = min(self.yaxis), max(self.yaxis)
+
+
+        self.ax.set_xlim(min_x - 0.01, max_x + 0.01)
+
+        self.ax.set_ylim(min_y - 0.5, max_y + 0.5)
+
         return self.line,
 
     def data_box(self, txt_labels: List[List[str]],
@@ -521,7 +520,7 @@ class Base_physics(tk.Tk):
     def read_ndatapoints(self) -> List[str]:
         """
         Verwerk de binnengekomen data van de ADC die in de self.data_voltage
-        en bereken hiermee  de transmissie, intensiteit en OD waarde. Voor
+        en bereken hiermee de transmissie, intensiteit en OD waarde. Voor
         de OD waarde en transmissie wordt de referentie file gebruikt die staat
         gespecificeerd in de instellingen. De return is 6 strings voor de
         data_box.
@@ -536,7 +535,7 @@ class Base_physics(tk.Tk):
         :return: Een lijst van strings met de waardes van voltage, transmissie, intensiteit en OD waarde.
         :rtype: List[str]
         """
-        avg, std = np.average(self.data_voltage), np.std(self.data_voltage)
+        avg, std = np.average(self.data_voltage), np.std(self.data_voltage) * int(self.std)
         transmissie = avg/self.refavg
 
         return ["{:>5.6f}".format(self.data_voltage[-1]),
@@ -545,7 +544,7 @@ class Base_physics(tk.Tk):
                 str(0), transmissie, np.log10(1/transmissie)]
 
     def update_student_measurement(self):
-        avg, std = np.average(self.student_voltage), np.std(self.student_voltage)
+        avg, std = np.average(self.student_voltage), np.std(self.student_voltage) * int(self.std)
         transmissie = avg/self.refavg
 
         return ["{:>5.6f}".format(self.student_voltage[-1]),
@@ -558,7 +557,7 @@ class Base_physics(tk.Tk):
                            meas_time=0.01):
         if measurementtype == str(0):
             data_time, data_voltage = generate_data(
-                int(nrofmeasurements))
+                int(nrofmeasurements), meas_time)
             data_time -= tstart
         else:
             data = single_data(last_time)
@@ -604,15 +603,16 @@ class Base_physics(tk.Tk):
                                        str(self.vals_st[en].get()))
                 self.upd_st[en].config(state="readonly")
 
-        print(self.thread.is_alive())
         if self.thread.is_alive():
             pass
-
         else:
-            data_time, data_voltage, intensity = self.queue.get(block=False)
+            try:
+                data_time, data_voltage, intensity = self.queue.get(block=False)
 
-            self.data_time = data_time
-            self.data_voltage = data_voltage
+                self.data_time = data_time
+                self.data_voltage = data_voltage
+            except queue.Empty:
+                pass
 
             data_time_axis = self.data_time
             data_voltage_axis = self.data_voltage
@@ -641,12 +641,12 @@ class Base_physics(tk.Tk):
                 self.upd[en].setvar(str(self.vals[en]), str(self.vals[en].get()))
                 self.upd[en].config(state="readonly")
 
-
             self.thread = threading.Thread(target=self.measurement_thread,
                                            args=(self.queue, self.time_start,
                                                  self.measurementtype, self.nrofmeasurements,
                                                  self.data_time[-1], self.data_time,
-                                                 self.data_voltage, float(self.nrofmeasurements)/float(self.msperframe)))
+                                                 self.data_voltage,
+                                                 float(self.msperframe)/(float(self.nrofmeasurements)*1000)))
             self.thread.start()
 
         job = self.after(self.msperdata, self.update_vars,
@@ -663,10 +663,11 @@ class Base_physics(tk.Tk):
     def reset_data(self):
 
         self.pause_meas()
+        self.queue.queue.clear()
 
         self.xaxis = self.data_time = np.zeros(1)
         self.yaxis = self.data_voltage = np.full(1, self.data_voltage[-1])
-        
+
         self.time_start = time()
 
         self.start_meas()
@@ -691,6 +692,8 @@ class Base_physics(tk.Tk):
             jobs = self.call("after", "info")
             for i in jobs:
                 self.after_cancel(i)
+
+            self.thread.join()
 
             # De meting is gestopt dus job is None
             self.job = None

@@ -143,18 +143,6 @@ class Settings(tk.Toplevel):
 
         framerow += 1
 
-        label_stapsgrootte = ttk.Label(master=frame, text="Stapsgrootte x-as")
-        label_stapsgrootte.grid(row=framerow, column=0, sticky="NSEW",
-                                columnspan=1,
-                                rowspan=1, padx=[0, 50])
-        self.entry_stapsgrootte = tk.Entry(master=frame)
-        self.entry_stapsgrootte.insert(0, self.parent.stepsize)
-        self.entry_stapsgrootte.grid(row=framerow, column=1, sticky="NSEW",
-                                    columnspan=1,
-                                    rowspan=1)
-
-        framerow += 1
-
         # VASTE INSTELLINGEN
         label_vast = tk.Label(master=frame, text="Vaste instellingen")
         label_vast.grid(row=framerow, column=0, sticky="NSEW",
@@ -277,7 +265,6 @@ class Settings(tk.Toplevel):
         self.parent.yastype = str(0) if sel_yas == "Spanning (V)" else str(1) if sel_yas == "Intensiteit" else str(2) if sel_yas == "Transmissie" else str(3)
         self.parent.msperframe = str(self.entry_vervmeting.get())
         self.parent.msperdata = str(self.entry_vervdata.get())
-        self.parent.stepsize = str(self.entry_stapsgrootte.get())
         self.parent.std = str(self.entry_sigma_factor.get())
         self.parent.path2ref = self.entry_path2ref.get()
 
@@ -306,11 +293,8 @@ class Settings(tk.Toplevel):
         self.parent.xastype = config["Grafiek"]["Grafiektypex"]
         self.parent.yastype = config["Grafiek"]["Grafiektypey"]
 
-        self.parent.stepsize = config["Grafiek"]["Stapsgrootte"]
-
         self.parent.msperdata = config["RTData"]["MsPerData"]
 
-        self.parent.adc2v = config["VasteParameters"]["ADC2V"]
         self.parent.std = config["VasteParameters"]["std"]
         self.parent.path2ref = config["VasteParameters"]["path_to_ref"]
 
@@ -322,6 +306,7 @@ class Settings(tk.Toplevel):
 
         self.row = 0
         self.build_settings()
+
 
     def destroy(self) -> None:
         self.__class__.alive = False

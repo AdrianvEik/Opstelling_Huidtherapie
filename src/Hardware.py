@@ -29,7 +29,7 @@ import numpy as np
 
 class ADCReader:
     """
-    uitlezen
+    Class om de ADC uit te lezen
     """
 
     def __init__(self):
@@ -37,31 +37,65 @@ class ADCReader:
         self.i2c = busio.I2C(board.SCL, board.SDA)
 
         # Create the ADC object using the I2C bus
-        self.ads = ADS.ADS1015(self.i2c)
+        self.adc = ADS.ADS1015(self.i2c, gain=1)
+        """De ADC die wordt uitgelezen"""
 
         # Create single-ended input on channel 0
-        self.chan = AnalogIn(self.ads, ADS.P1)
+        self.chan = AnalogIn(self.adc, ADS.P1)
+        """Channel waarop wordt uitgelezen"""
 
-        # Create differential input between channel 0 and 1
-        # self.chan = AnalogIn(self.ads, ADS.P0, ADS.P1)
+    @property
+    def voltage(self) -> float:
+        """
+        Voltage dat uit de ADC wordt gelezen
 
-    def read_adc(self):
-        return self.chan.value, self.chan.voltage
+        :return: voltage in V
+        :rtype: float
+        """
+        v = self.chan.voltage
+
+        # Hier code om voltage te manipuleren of vervangen zodat
+        # deze het juiste voltage teruggeeft
+
+        return v
 
     def get_meas(self, nmeas: int, tijd: float, sigma: int = 1,
-                 start_time: float = 0) -> Tuple[np.ndarray, float]:
+                 start_time: float = 0) -> Tuple[float, float, float]:
+        """
+        Doe een meting van nmeas metingen met een totale tijd van tijd en
+        een sigma van sigma. start_time is de tijd waarop de meting is gestart
+        en wordt gebruikt om de timestamp van ieder punt te berekenen.
+
+        :param nmeas: Het aantal metingen dat uitgevoerd en samengevoegd wordt
+        :type nmeas: int
+        :param tijd: De totale tijd van de meting
+        :type tijd: float
+        :param sigma: De sigma factor in de standaardeviatie I.E. 3*sigma
+        :type sigma: int, optional
+        :param start_time: De tijd waarop de meting is gestart. Default 0
+        :type start_time: float
+        :return: De gemiddelde waarde van de meting, de tijd van de meting en
+                    de standaarddeviatie van de meting
+        :rtype: Tuple[float, float, float]
+        """
         meastime = tijd / nmeas
         measlist = []
 
         for i in range(nmeas):
             time.sleep(meastime)
-            measlist.append(self.read_adc()[1])
+            measlist.append(self.voltage)
 
         t = time.time() - start_time
 
-        return np.average(measlist), t, np.std(measlist) * sigma
+        return float(np.average(measlist)), float(t), float(np.std(measlist) * sigma)
 
-    def show_measure(self):
+    def show_measure(self) -> None:
+        """
+        Laat de metingen zien in de console als:
+            "nmeas\ttijd\tgemiddelde"
+
+        :return: None
+        """
         while True:
             print(
                 "{:>5}\t{:>5.3f}\t{:>5.8f}".format(*self.get_meas(1, 0.1, 3)))
