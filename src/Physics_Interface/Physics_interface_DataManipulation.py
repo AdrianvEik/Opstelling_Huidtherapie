@@ -20,6 +20,7 @@ class SaveData(tk.Toplevel):
 
     alive = False
     def __init__(self, parent):
+        """ Initialize the window """
         super().__init__(parent)
 
         # Titel boven de GUI
@@ -29,8 +30,11 @@ class SaveData(tk.Toplevel):
         self.resizable(False, False)
 
         self.datax = None
+        """X data to be saved"""
         self.datay = None
+        """Y data to be saved"""
         self.stdy = None
+        """Standard deviation of the y data to be saved"""
 
         # Global row counter
         self.row = 0
@@ -62,11 +66,21 @@ class SaveData(tk.Toplevel):
         self.__class__.alive = True
 
     def load_data_from_main(self, datax, datay, stdy):
+        """
+        Load data from the main window
+
+        :param datax: X data to be saved, from the main window
+        :param datay: Y data to be saved, from the main window
+        :param stdy: Standard deviation of the y data to be saved, from the main window
+
+        :return: None
+        """
         self.datax = datax
         self.datay = datay
         self.stdy = stdy
 
     def save_data(self):
+        """ Save data to a path and filename, if no path is given, save to ../data """
         path = self.Entry_path.get()
         filename = self.Entry_filename.get()
 
@@ -86,15 +100,18 @@ class SaveData(tk.Toplevel):
         return super().destroy()
 
 class Saved_data_notif(tk.Toplevel):
-
+    """ Notification window to show the user that the data has been saved """
     def __init__(self, parent):
+        """ Initialize the window """
         super().__init__(parent)
 
     def get_path(self, path, filename):
+        """ Get the path and filename to be shown in the notification """
         self.path = path
         self.filename = filename
 
     def message(self):
+        """ Show the notification """
         self.label = ttk.Label(master=self, text="Data saved to: "+self.path+"/"+self.filename+".txt")
         self.label.grid(row=0, column=0, sticky="NSEW", columnspan=1,
                         rowspan=1)

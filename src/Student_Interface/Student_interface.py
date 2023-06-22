@@ -27,13 +27,22 @@ class Student_start_measurement(tk.Tk):
         self.path2ref = None
 
         self.nrofmeasurementsstudent = None
+        """Het aantal meetpunten dat in een meting zit"""
+
         self.student_measurementtime = None
+        """De tijd die het kost om een meting uit te voeren"""
+
         self.student_measurementtype = None
+        """Wordt het resultaat weergeven als transmissie of OD waarde"""
+
         self.marge = None
+        """De marge die wordt gebruikt om te bepalen of de opstelling goed is"""
 
         self.initialise_config_data()
 
         self.refdata = np.loadtxt(self.path2ref, dtype=float)
+        """De referentie data"""
+
         self.refavg = np.average(self.refdata[:, 0])
         self.refstd = np.std(self.refdata[:, 0])
 
@@ -145,18 +154,23 @@ class Student_start_measurement(tk.Tk):
 
     def measurement(self, queue=None):
         """Start a measurement"""
-        print(int(self.nrofmeasurementsstudent), float(self.nrofmeasurementsstudent)/float(self.student_measurementtime))
         data = self.data_source(int(self.nrofmeasurementsstudent),
                                 meastime=float(self.nrofmeasurementsstudent)/(float(self.student_measurementtime) * 1000))
 
         queue.put(data)
 
     def result_analysis(self, result):
-
+        """ Analyseer het resultaat van de meting en geef het resultaat weer """
         calculated_result = np.average(result[1])
+
+        if self.student_measurementtype == "0":
+            calculated_result = calculated_result/self.refavg * 100
+        elif self.student_measurementtype == "1":
+            calculated_result = np.log10(self.refavg/calculated_result)
+
         self.write_to_txt(np.array(result).T)
 
-        self.verification_start.config(text="Resultaat meting: {0}".format(calculated_result))
+        self.verification_start.config(text="Resultaat meting: {0:.2f} {1}".format(calculated_result, (lambda: "% wordt doorgelaten." if self.student_measurementtype == "0" else "OD-waarde")()))
         self.progress_bar.stop()
         self.progress_bar.destroy()
         self.frame_row += 1

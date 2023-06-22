@@ -32,6 +32,7 @@ class Base_interface(tk.Tk):
 
     """
     def __init__(self):
+        """ Initialiseer de GUI """
         super().__init__()
         # Titel boven de GUI
         self.title("UV-huidtherapie")
@@ -64,7 +65,9 @@ class Base_interface(tk.Tk):
             self.grid_rowconfigure(i, weight=1)
 
 
-    def student_button(self, linked_event):
+    def student_button(self):
+        """ Maak een knop aan die de student interface opent """
+
         def on_action():
             from Physics_Interface.Physics_interface import generate_data, single_data
 
@@ -78,25 +81,26 @@ class Base_interface(tk.Tk):
 
 
 
-        button = tk.Button(self, text="Student", command=on_action)
+        button = tk.Button(self, text="Huidtherapie Student", command=on_action)
         # Pas pad aan voor positie en niet col of row
         button.grid(row=self.row, column=0, sticky="nsew", padx=50, pady=50)
         self.row += 1
 
     def physics_button(self, linked_event):
+        """ Maak een knop aan die de physics interface opent """
         def on_action():
+            """ Open de physics interface """
             linked_event()
             self.destroy()
 
-        button = tk.Button(self, text="Physics", command=on_action)
+        button = tk.Button(self, text="Troubleshooting/Instellingen", command=on_action)
         # Pas pad aan voor positie en niet col of row
         button.grid(row=self.row, column=0, sticky="nsew", padx=50, pady=50)
         self.row += 1
 
     def build_gui(self):
-        self.student_button(
-            linked_event=self.student_startup
-        )
+        """ Plaatst de buttons voor student en physics op de GUI """
+        self.student_button()
         self.physics_button(
             linked_event=self.physics_link
         )

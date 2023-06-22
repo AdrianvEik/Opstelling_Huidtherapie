@@ -119,7 +119,7 @@ class Base_physics(tk.Tk):
 
         self.title("Technisch interface")
 
-        self.geom = (900, 600)
+        self.geom = (1200, 900)
         """Geometrie van het scherm, wordt direct in de __init__ gebruikt"""
 
         self.geometry("%sx%s" % self.geom)
@@ -782,6 +782,8 @@ class Base_physics(tk.Tk):
         """
         Sla de data op via een SaveData object, dit spawned een nieuw venster uit
         de SaveData klasse.
+
+        Dit slaat de voltage data op in de y-as en de tijd data op in de x-as.
 
         :return: None
         """
