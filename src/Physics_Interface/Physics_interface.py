@@ -28,9 +28,16 @@ try:
     # Dit is een test functie
     def generate_data(samples, meastime=0.01) -> Tuple[np.ndarray, np.ndarray]:
         """
-        Genereer data voor de GUI
+        Lees 'sample' data punten met een meettijd van 'meastime' uit de ADC
 
-        :return: tijd, data
+        :param samples: aantal samples
+        :type samples: int
+
+        :param meastime: meettijd in seconden
+        :type meastime: float
+
+        :return: np.ndarray van tijd en np.ndarray van data
+        :rtype: Tuple[np.ndarray, np.ndarray]
         """
         global adc_reader
         # Maak een array aan van data over de tijd, sleep is om te simuleren dat het even duurt
@@ -44,7 +51,16 @@ try:
         # Return tijd, data
         return data_arr[:, 1], data_arr[:, 0]
 
-    def single_data(tref: float):
+    def single_data(tref: float) -> Tuple[float, float]:
+        """
+        Return the current time and the voltage from the adc_reader
+
+        :param tref: reference time
+        :type tref: float
+
+        :return: Tuple of time and voltage
+        :rtype: Tuple[float, float]
+        """
         global adc_reader
         return time(), adc_reader.voltage
 
@@ -52,7 +68,9 @@ except Exception as e:
 
     def generate_data(samples, meastime: float = 0.01) -> Tuple[np.ndarray, np.ndarray]:
         """
-        Genereer data voor de GUI
+        Genereer data voor de GUI als simulatie voor hardware.py als deze niet
+        beschikbaar is.
+
         :return: tijd, data
         """
         # Maak een array aan van data over de tijd, sleep is om te simuleren dat het even duurt
@@ -70,6 +88,14 @@ except Exception as e:
         return data_arr[:, 1], data_arr[:, 0]
 
     def single_data(tref):
+        """
+        Mock functie voor single data als hardware.py niet beschikbaar is.
+        :param tref: referentie tijd
+        :type tref: float
+
+        :return: Array met willekeurige data
+        :rtype: np.ndarray
+        """
         return np.array([time(), np.random.randint(0, 7)], dtype=float)
 
 
@@ -81,6 +107,7 @@ class Base_physics(tk.Tk):
     gehardcode in de code.
     """
     def __init__(self):
+        """Initialisatie van de GUI"""
         super().__init__()
 
         self.queue = queue.Queue()
@@ -186,7 +213,7 @@ class Base_physics(tk.Tk):
 
 
     def Build_GUI_physics(self, updated=True):
-        """"
+        """
         Bouw de GUI op en voeg de volgende elementen toe:
             - De linker helft van het scherm wordt opgevuld met een grafiek
               dit wordt gedaan met de functie ..py:class Base_physics.graph_topleft
@@ -544,6 +571,13 @@ class Base_physics(tk.Tk):
                 str(0), transmissie, np.log10(1/transmissie)]
 
     def update_student_measurement(self):
+        """
+        Verwerk de binnengekomen data van de ADC die in de self.student_voltage
+        staat opgeslagen en bereken hiermee de transmissie, intensiteit en OD.
+
+        :return: Een lijst met het gemiddelde voltage, de standaard deviatie, de intensiteit, de transmissie en de OD waarde.
+        :rtype: List[str]
+        """
         avg, std = np.average(self.student_voltage), np.std(self.student_voltage) * int(self.std)
         transmissie = avg/self.refavg
 
@@ -555,6 +589,36 @@ class Base_physics(tk.Tk):
     def measurement_thread(self, q, tstart, measurementtype, nrofmeasurements,
                            last_time, prev_data_time, prev_data_voltage,
                            meas_time=0.01):
+        """
+        Start een meting op in een aparte thread. De meting wordt gestart
+        door de functie :func:`generate_data` of :func:`single_data` aan te
+        roepen.
+        :param q: Queue waar de data in wordt opgeslagen.
+        :type q: Queue
+
+        :param tstart: Starttijd van de meting.
+        :type tstart: float
+
+        :param measurementtype: Type meting, 0 voor een meting met een vast aantal datapunten, 1 voor een meting met een variabel aantal datapunten.
+        :type measurementtype: str
+
+        :param nrofmeasurements: Aantal datapunten dat gemeten moet worden.
+        :type nrofmeasurements: str
+
+        :param last_time: Tijd van het laatste datapunt.
+        :type last_time: float
+
+        :param prev_data_time: Tijd van de vorige datapunten.
+        :type prev_data_time: numpy.ndarray
+
+        :param prev_data_voltage: Voltage van de vorige datapunten.
+        :type prev_data_voltage: numpy.ndarray
+
+        :param meas_time: Tijd tussen de datapunten.
+        :type meas_time: float
+
+        :return: None
+        """
         if measurementtype == str(0):
             data_time, data_voltage = generate_data(
                 int(nrofmeasurements), meas_time)
@@ -662,13 +726,43 @@ class Base_physics(tk.Tk):
 
     # Gelinkte functies
     def calculate_intesnity(self, x):
+        """
+        Bereken de intensiteit van een enkele waarde of array van waarden.
+        Functie via: https://learn.sparkfun.com/tutorials/ml8511-uv-sensor-hookup-guide/all
+
+        Wiskundig is dit een lineair verband met een offset van 1 en een
+        helling van 15/2 ofwel:
+
+        .. math::
+            y = \\frac{15}{2}x + 1
+
+        :param x: Voltage waarde of array van voltage waarden
+        :type x: Optional[float, np.ndarray]
+
+        :return: Intensiteit waarde of array van intensiteit waarden
+        """
+
         # https://learn.sparkfun.com/tutorials/ml8511-uv-sensor-hookup-guide/all
         # Linear equation between 0 and 15mW/cm^2 and 1 and 3 V output
         return (x-0.99) * 15/2 + 1
 
     def reset_data(self):
+        """
+        Reset de data in de self.data_time en self.data_voltage arrays en
+        daarmee ook de grafiek/databox. De data wordt gereset naar een enkele
+        waarde, namelijk de laatst gemeten waarde.
+
+        Clear ook de queue van de thread zodat de oude data niet meer wordt
+        teruggegeven in de self.data_time en self.data_voltage arrays
+
+        :return: None
+        """
 
         self.pause_meas()
+
+        if self.thread.is_alive():
+            self.thread.join()
+
         self.queue.queue.clear()
 
         self.xaxis = self.data_time = np.zeros(1)
@@ -681,10 +775,16 @@ class Base_physics(tk.Tk):
         return None
 
     def save_data(self):
+        """
+        Sla de data op via een SaveData object, dit spawned een nieuw venster uit
+        de SaveData klasse.
+
+        :return: None
+        """
         if not SaveData.alive:
             sv = SaveData(self)
             sv.load_data_from_main(self.data_time, self.data_voltage, self.calculate_intesnity(self.data_voltage))
-        return "data saved"
+        return None
 
     def pause_meas(self):
         """
@@ -707,7 +807,7 @@ class Base_physics(tk.Tk):
 
     def start_meas(self):
         """
-        Restart the update_vars job and set self.job to the job
+        Als er geen meting loopt, start een meting via de update_vars functie.
 
         :return: None
         """
@@ -720,7 +820,7 @@ class Base_physics(tk.Tk):
 
     def start_settings(self):
         """
-        Start the settings window
+        Start een settings window via de Settings klasse.
 
         :return: None
         """
@@ -732,6 +832,11 @@ class Base_physics(tk.Tk):
         return None
 
     def start_student_measurement(self):
+        """
+        Start een student measurement window via de Student_start_measurement klasse.
+
+        :return: None
+        """
         self.pause_meas()
 
         st = Student_start_measurement()
@@ -741,8 +846,14 @@ class Base_physics(tk.Tk):
         st.measure_frame(st.verification_measurement, result_function=st.update_startup)
 
     def destroy(self) -> None:
+        """
+        Zorg ervoor dat alles netjes wordt afgesloten als het hoofdvenster wordt gesloten.
+
+        :return: None
+        """
         self.pause_meas()
         self.fig.clear()
+        self.thread.join()
 
         try:
             super().destroy()
