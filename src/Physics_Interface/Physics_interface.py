@@ -5,6 +5,7 @@ import configparser as cp
 import threading
 import queue
 
+import matplotlib
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
@@ -403,13 +404,16 @@ class Base_physics(tk.Tk):
         # self.after(1000, self.update, generate_data())
         return None
 
-    def animate(self, i):
+    def animate(self, i: int) -> matplotlib.lines.Line2D:
         """
         Functie die de data van de grafiek update. De data wordt uit de attributes
         self.xaxis en self.yaxis gehaald welke worden geupdate door de functie
         self.update_vars().
-        :param i:
-        :return:
+        :param i: Iteratie van de functie
+        :type i: int
+
+        :return: De lijn van de grafiek
+        :rtype: matplotlib.lines.Line2D
         """
         self.line.set_xdata(self.xaxis)
         self.line.set_ydata(self.yaxis)

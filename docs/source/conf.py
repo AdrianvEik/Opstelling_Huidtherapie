@@ -13,7 +13,8 @@ import mock
 MOCK_MODULES = ['numpy', 'matplotlib', 'matplotlib.pyplot',
                 'mpl_toolkits.axes_grid1', 'scipy', 'scipy.optimize',
                 'matplotlib.animation', 'numpy.random', 'scipy.stats',
-                'AdrianPack.Fileread', 'matplotlib.backends.backend_tkagg']
+                'AdrianPack.Fileread', 'matplotlib.backends.backend_tkagg',
+                'matplotlib.lines.Line2D']
 
 for mod_name in MOCK_MODULES:
     sys.modules[mod_name] = mock.Mock()
