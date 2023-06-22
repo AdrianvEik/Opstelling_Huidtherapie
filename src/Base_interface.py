@@ -87,7 +87,13 @@ class Base_interface(tk.Tk):
         self.row += 1
 
     def physics_button(self, linked_event):
-        """ Maak een knop aan die de physics interface opent """
+        """ Maak een knop aan die de physics interface opent
+
+        :param linked_event: de class van de physics interface
+        :type linked_event: class
+
+        :return: None
+        """
         def on_action():
             """ Open de physics interface """
             linked_event()

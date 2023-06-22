@@ -102,11 +102,22 @@ class SaveData(tk.Toplevel):
 class Saved_data_notif(tk.Toplevel):
     """ Notification window to show the user that the data has been saved """
     def __init__(self, parent):
-        """ Initialize the window """
+        """ Initialize the window
+        :param parent: Parent window
+        :type parent: tk.Toplevel
+        """
         super().__init__(parent)
 
     def get_path(self, path, filename):
-        """ Get the path and filename to be shown in the notification """
+        """
+        Get the path and filename to be shown in the notification from the SaveData window.
+
+        :param path: Path to the saved file
+        :type path: str
+
+        :param filename: Filename of the saved file
+        :type filename: str
+        """
         self.path = path
         self.filename = filename
 
