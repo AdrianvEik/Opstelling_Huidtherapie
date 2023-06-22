@@ -16,9 +16,11 @@ from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg,
 
 
 class SaveData(tk.Toplevel):
-    "Window to save data to a path and filename"
+    """Window to save data to a path and filename"""
 
     alive = False
+    """Boolean to check if the SaveData is alive"""
+
     def __init__(self, parent):
         """ Initialize the window """
         super().__init__(parent)
@@ -70,8 +72,13 @@ class SaveData(tk.Toplevel):
         Load data from the main window
 
         :param datax: X data to be saved, from the main window
+        :type datax: np.ndarray
+
         :param datay: Y data to be saved, from the main window
+        :type datay: np.ndarray
+
         :param stdy: Standard deviation of the y data to be saved, from the main window
+        :type stdy: np.ndarray
 
         :return: None
         """
