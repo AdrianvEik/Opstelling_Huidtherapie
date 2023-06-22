@@ -563,7 +563,11 @@ class Base_physics(tk.Tk):
             data = single_data(last_time)
 
             if prev_data_time.shape[0] > 200:
+                data_time, data_voltage = prev_data_time[1:], prev_data_voltage[1:]
+                data_time[-1] = data[0] - tstart
+                data_voltage[-1] = data[1]
 
+            else:
                 data_time = np.append(prev_data_time, data[0] - tstart)
                 data_voltage = np.append(prev_data_voltage, data[1])
 
