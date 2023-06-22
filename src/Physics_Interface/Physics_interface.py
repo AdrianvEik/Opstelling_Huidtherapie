@@ -562,8 +562,10 @@ class Base_physics(tk.Tk):
         else:
             data = single_data(last_time)
 
-            data_time = np.append(prev_data_time, data[0] - tstart)
-            data_voltage = np.append(prev_data_voltage, data[1])
+            if prev_data_time.shape[0] > 200:
+
+                data_time = np.append(prev_data_time, data[0] - tstart)
+                data_voltage = np.append(prev_data_voltage, data[1])
 
         intensity = self.calculate_intesnity(data_voltage)
 
