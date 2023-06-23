@@ -686,7 +686,7 @@ class Base_physics(tk.Tk):
                 self.data_time = data_time
                 self.data_voltage = data_voltage
             except queue.Empty:
-                pass
+                intensity = self.calculate_intesnity(self.data_voltage)
 
             data_time_axis = self.data_time
             data_voltage_axis = self.data_voltage
