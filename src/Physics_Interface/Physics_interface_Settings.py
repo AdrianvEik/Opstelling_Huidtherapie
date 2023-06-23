@@ -8,8 +8,10 @@ import configparser as cp
 
 class Settings(tk.Toplevel):
     alive = False
+    """Window alive flag"""
 
     def __init__(self, parent):
+        """ Initialize the window """
         super().__init__(parent)
         self.parent = parent
 
@@ -31,10 +33,13 @@ class Settings(tk.Toplevel):
 
         self.__class__.alive = True
 
-    def get_config(self):
-        return None
-
     def build_settings(self):
+        """
+        Maak de settings aan, plaats al de labels en link ze aan de juiste variabelen
+        via attributen van de klasse.
+
+        :return: None
+        """
         frame = tk.Frame(master=self)
         framerow = 0
         # Maak een label aan
@@ -257,6 +262,7 @@ class Settings(tk.Toplevel):
         self.row += 1
 
     def save_options(self):
+        """Saves the options to the parent class from the entry fields"""
         self.parent.nrofmeasurements = str(self.Entry_ndatapoints.get())
         self.parent.measurementtype = str(0) if self.selectie_typmeet.get() == "N-samples" else str(1)
 
@@ -282,6 +288,7 @@ class Settings(tk.Toplevel):
         return None
 
     def reset_options(self):
+        """Resets the options to the default values"""
         config = cp.ConfigParser()
         config.read("../src/cfg_standard.config")
         self.parent.measurementtype = config["Algemeen"]["typemeting"]
@@ -309,5 +316,6 @@ class Settings(tk.Toplevel):
 
 
     def destroy(self) -> None:
+        """Destroys the frame"""
         self.__class__.alive = False
         return super().destroy()
