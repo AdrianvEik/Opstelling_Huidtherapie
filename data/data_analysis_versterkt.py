@@ -97,12 +97,13 @@ avg_nulmeting = np.average(np.array([np.average(voltages_nulmeting[i]) for i in 
 transmission_set1 = np.abs(avg_voltage_set12 / avg_nulmeting)
 
 OD_set1 = -np.log10(transmission_set1)
-print(OD_set1)
+err = std / (OD_set1 * np.log(10))
+err[0] = np.log10(1 + std[0]/2) - np.log10(1 - std[0]/2)
 
-pl31 = Default(OD_values[:7], OD_set1[:7], y_err=std[:7], data_label="ML8511 UV versterkt", colour="g", fx=fit_func, linestyle="",
+pl31 = Default(OD_values[:7], OD_set1[:7], y_err=err[:7], data_label="ML8511 UV versterkt", colour="g", fx=fit_func, linestyle="",
               x_label="OD filter waarde", y_label="OD gemeten waarde", func_format="fit lin. gebied: y = {0}x",
               legend_loc="lower right", capsize=5, decimal_comma=False, add_mode=True)
-pl32 = Default(OD_values[7:], OD_set1[7:], y_err=std[7:], colour="g", linestyle="",
+pl32 = Default(OD_values[7:], OD_set1[7:], y_err=err[7:], colour="g", linestyle="",
               add_mode=True, data_label="", capsize=5)
 
 # pl1.save_as = "ODOD_versterkt.png"
