@@ -13,6 +13,9 @@ def calculate_intesnity(x):
     # Linear equation between 0 and 15mW/cm^2 and 1 and 3 V output
     return (x-0.99) * 15/2 + 1
 
+def compute_OD_from_T(T):
+    return -np.log10(T/100)
+
 sigma = 1
 
 folder = "230623_thorlabs"
@@ -29,7 +32,8 @@ voltages_nulmeting = calculate_intesnity(data_nulmeting[1:-1:3, :])
 
 # Add the data sets together and calculate the standard deviation
 std = [np.std(voltages_set1[i]) * sigma for i in range(voltages_set1.shape[0])]
-OD_values = np.array([1, 2, 3, 4])
+OD_values = compute_OD_from_T( np.array([10, 0.76, 0.1, 0.001]))
+
 
 avg_nulmeting = np.average(np.array([np.average(voltages_nulmeting[i]) for i in range(voltages_nulmeting.shape[0])]))
 

@@ -13,6 +13,9 @@ def calculate_intesnity(x):
     # Linear equation between 0 and 15mW/cm^2 and 1 and 3 V output
     return (x-0.99) * 15/2 + 1
 
+def compute_OD_from_T(T):
+    return -np.log10(T/100)
+
 sigma = 1
 
 folder = "230623_thorlabs"
@@ -29,7 +32,7 @@ voltages_set1 = data_set_1_sensor[1:-1:3, :]
 voltages_nulmeting = data_nulmeting[1:-1:3, :]
 std = [np.std(voltages_set1[i]) * sigma for i in range(voltages_set1.shape[0])]
 
-OD_values = np.array([0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 1, 2, 3, 4])
+OD_values = compute_OD_from_T( np.array([81, 65, 56, 45, 38, 30, 10, 0.76, 0.1, 0.001]))
 OD_values_hoog = np.array([2, 3, 4])
 
 OD_values = OD_values
@@ -62,7 +65,7 @@ voltages_nulmeting = calculate_intesnity(data_nulmeting[1:-1:3, :])
 # Add the data sets together and calculate the standard deviation
 std = [np.std(voltages_set1[i]) * sigma for i in range(voltages_set1.shape[0])]
 
-OD_values = np.array([0.1, 0.2, 0.3, 0.4, 0.6, 1, 2, 3, 4])
+OD_values = compute_OD_from_T( np.array([81, 65, 56, 45, 30, 10, 0.76, 0.1, 0.001]))
 OD_values_hoog = np.array([2, 3, 4])
 
 OD_values = OD_values
@@ -94,7 +97,7 @@ print(avg_voltage_set12.shape)
 # Add the data sets together and calculate the standard deviation
 std = [np.std(voltages_set1[i]) * sigma for i in range(voltages_set1.shape[0])]
 
-OD_values = np.array([0.1, 0.2, 0.3, 0.4, 0.6, 1, 2, 3, 4])
+OD_values = compute_OD_from_T( np.array([81, 65, 56, 45, 30, 10, 0.76, 0.1, 0.001]))
 OD_values_hoog = np.array([2, 3, 4])
 
 

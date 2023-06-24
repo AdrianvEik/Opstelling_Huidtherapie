@@ -13,6 +13,9 @@ def calculate_intesnity(x):
     # Linear equation between 0 and 15mW/cm^2 and 1 and 3 V output
     return (x-0.99) * 15/2 + 1
 
+def compute_OD_from_T(T):
+    return -np.log10(T/100)
+
 sigma = 1
 
 folder = "230623_onzesensor/zonder_versterking"
@@ -33,8 +36,8 @@ voltages_nulmeting = calculate_intesnity(data_nulmeting[1:-1:3, :])
 # Add the data sets together and calculate the standard deviation
 std = [np.std(voltages_set1[i]) * sigma for i in range(voltages_set1.shape[0])]
 
-OD_values = np.array([0.1, 0.2, 0.3, 0.4, 0.6, 1, 2, 3, 4])
-OD_values_hoog = np.array([2, 3, 4])
+OD_values = compute_OD_from_T( np.array([81, 65, 56, 45, 30, 10, 0.76, 0.1, 0.001]))
+
 
 OD_values = OD_values
 
@@ -74,8 +77,8 @@ voltages_nulmeting = data_nulmeting[1:-1:3, :]
 print(voltages_set1)
 std = [np.std(voltages_set1[i]) * sigma for i in range(voltages_set1.shape[0])]
 
-OD_values = np.array([0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 1, 2, 3, 4])
-OD_values_hoog = np.array([2, 3, 4])
+OD_values = compute_OD_from_T(np.array([81, 65, 56, 45, 38, 30, 10, 0.76, 0.1, 0.001]))
+
 
 OD_values = OD_values
 
@@ -92,7 +95,6 @@ transmission_set1 = np.abs(avg_voltage_set12 / avg_nulmeting)
 OD_set1 = -np.log10(transmission_set1)
 std = std / (OD_set1 * np.log(10))
 
-print(OD_set1)
 
 pl11 = Default(OD_values[:6], OD_set1[:6], y_err=std[:6], data_label="Thorlabs sensor", colour="r", fx=fit_func, linestyle="",
               x_label="OD filter waarde", y_label="OD gemeten waarde", func_format="fit lin. gebied: y = {0}x", add_mode=True,
@@ -117,8 +119,8 @@ voltages_nulmeting = calculate_intesnity(data_nulmeting[1:-1:3, :])
 # Add the data sets together and calculate the standard deviation
 std = [np.std(voltages_set1[i]) * sigma for i in range(voltages_set1.shape[0])]
 
-OD_values = np.array([0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 1, 2, 3, 4])
-OD_values_hoog = np.array([2, 3, 4])
+OD_values = compute_OD_from_T(np.array([81, 65, 56, 45, 38, 30, 10, 0.76, 0.1, 0.001]))
+
 
 OD_values = OD_values
 

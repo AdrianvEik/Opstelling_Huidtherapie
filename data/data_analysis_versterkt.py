@@ -13,6 +13,9 @@ def calculate_intesnity(x):
     # Linear equation between 0 and 15mW/cm^2 and 1 and 3 V output
     return (x-0.99) * 15/2 + 1
 
+def compute_OD_from_T(T):
+    return -np.log10(T/100)
+
 sigma = 1
 
 folder = "230623_onzesensor/zonder_versterking"
@@ -33,8 +36,7 @@ print(avg_voltage_set12.shape)
 # Add the data sets together and calculate the standard deviation
 std = [np.std(voltages_set1[i]) * sigma for i in range(voltages_set1.shape[0])]
 
-OD_values = np.array([0.1, 0.2, 0.3, 0.4, 0.6, 1, 2, 3, 4])
-OD_values_hoog = np.array([2, 3, 4])
+OD_values = compute_OD_from_T( np.array([81, 65, 56, 45, 30, 10, 0.76, 0.1, 0.001]))
 
 OD_values = OD_values
 
@@ -54,7 +56,7 @@ pl1 = Default(OD_values[:6], OD_set1[:6], y_err=std[:6], data_label="ML8511 UV z
 pl2 = Default(OD_values[6:], OD_set1[6:], y_err=std[6:], colour="b", linestyle="",
               add_mode=True, data_label="", capsize=5)
 
-pl1 += pl2
+# pl1 += pl2
 
 # Second dataset
 folder = "230623_thorlabs"
@@ -84,8 +86,7 @@ voltages_nulmeting = calculate_intesnity(data_nulmeting[1:-1:3, :])
 # Add the data sets together and calculate the standard deviation
 std = [np.std(voltages_set1[i]) * sigma for i in range(voltages_set1.shape[0])]
 
-OD_values = np.array([0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 1, 2, 3, 4])
-OD_values_hoog = np.array([2, 3, 4])
+OD_values = compute_OD_from_T( np.array([81, 65, 56, 45, 38, 30, 10, 0.76, 0.1, 0.001]))
 
 OD_values = OD_values
 
@@ -108,7 +109,7 @@ pl32 = Default(OD_values[7:], OD_set1[7:], y_err=err[7:], colour="g", linestyle=
 
 # pl1.save_as = "ODOD_versterkt.png"
 pl1 += pl31
-pl1 += pl32
+# pl1 += pl32
 pl1()
 
 # plt.savefig("data_thorlas/plot_ODOD.png", dpi=600)
