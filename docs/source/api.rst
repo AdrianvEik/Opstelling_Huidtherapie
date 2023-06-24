@@ -41,14 +41,19 @@ Measurement Settings
 
 In dit scherm kan de gebruiker de instellingen van de meting aanpassen. De gebruiker kan de volgende instellingen aanpassen:
 Voor de meting:
+
 - Het meettype (N-metingen tegelijk of iedere meting aan de bestaande grafiek toevoegen)
 - Het aantal metingen dat tegelijk wordt uitgevoerd.
+
 Voor de grafiek:
+
 - De grootheid op de x-as (tijd of nr van metingen)
 - De grootheid op de y-as (spanning, intensiteit, transmissie of berekende OD waarden)
 - De verversingsfrequentie van de grafiek (standaard 1000 ms)
 - De stapsgrootte van de x-as
+
 Een aantal algemene variabelen:
+
 - De sigma factor voor de berekening van de standaarddeviatie die wordt weergegeven.
 - Het pad naar de referentie meting voor verificatie van de opstelling en voor de berekening van OD/transmissie waarden.
 Instellingen voor een studentenmeting:

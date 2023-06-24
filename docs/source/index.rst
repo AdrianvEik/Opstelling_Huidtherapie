@@ -14,3 +14,16 @@ te kunnen gebruiken en hieraan te kunnen meten.
    interface
    api
    contact
+
+
+Zoek door de documentatie heen!
+--------------------------------
+De documentatie is opgedeeld in verschillende onderdelen welke te vinden
+zijn in het register
+
+* :ref:`genindex`
+
+of per module in
+
+* :ref:`modindex`
+* :ref:`search`
