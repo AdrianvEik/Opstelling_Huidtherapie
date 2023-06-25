@@ -36,8 +36,6 @@ class Base_interface(tk.Tk):
         super().__init__()
         # Titel boven de GUI
         self.title("UV-huidtherapie")
-        # self.frame = tk.Frame(self)
-        # self.frame.grid()
 
         # Grid config, maar een kolom dus gewicht 1
         self.grid_columnconfigure(0, weight=1)
@@ -51,12 +49,6 @@ class Base_interface(tk.Tk):
         # Global row counter
         self.row = 0
 
-        # Vars
-        # Link naar het volgende scherm (student)
-        self.student_startup = Student_start_measurement
-        # Link naar het volgende scherm (physics)
-        self.physics_link = Base_physics
-
         # Build GUI
         self.build_gui()
 
@@ -69,10 +61,10 @@ class Base_interface(tk.Tk):
         """ Maak een knop aan die de student interface opent """
 
         def on_action():
-            from Physics_Interface.Physics_interface import generate_data, single_data
+            from Physics_Interface.Physics_interface import multiple_data, single_data
 
-            st = self.student_startup()
-            st.data_source = generate_data
+            st = Student_start_measurement()
+            st.data_source = multiple_data
             st.data_source_single = single_data
 
             st.measure_frame(st.verification_measurement,
@@ -86,7 +78,7 @@ class Base_interface(tk.Tk):
         button.grid(row=self.row, column=0, sticky="nsew", padx=50, pady=50)
         self.row += 1
 
-    def physics_button(self, linked_event):
+    def physics_button(self):
         """ Maak een knop aan die de physics interface opent
 
         :param linked_event: de class van de physics interface
@@ -96,7 +88,9 @@ class Base_interface(tk.Tk):
         """
         def on_action():
             """ Open de physics interface """
-            linked_event()
+            bp = Base_physics()
+            bp.Build_GUI_physics()
+
             self.destroy()
 
         button = tk.Button(self, text="Troubleshooting/Instellingen", command=on_action)
@@ -107,6 +101,4 @@ class Base_interface(tk.Tk):
     def build_gui(self):
         """ Plaatst de buttons voor student en physics op de GUI """
         self.student_button()
-        self.physics_button(
-            linked_event=self.physics_link
-        )
+        self.physics_button()

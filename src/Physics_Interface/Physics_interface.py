@@ -27,7 +27,7 @@ try:
     adc_reader = ADCReader()
     # Hier iets wat voor nu data genereert om aan te leveren aan Base_interface
     # Dit is een test functie
-    def generate_data(samples, meastime=0.01) -> Tuple[np.ndarray, np.ndarray]:
+    def multiple_data(samples, meastime=0.01) -> Tuple[np.ndarray, np.ndarray]:
         """
         Lees 'sample' data punten met een meettijd van 'meastime' uit de ADC
 
@@ -52,7 +52,7 @@ try:
         # Return tijd, data
         return data_arr[:, 1], data_arr[:, 0]
 
-    def single_data(tref: float) -> Tuple[float, float]:
+    def single_data() -> Tuple[float, float]:
         """
         Return the current time and the voltage from the adc_reader
 
@@ -67,7 +67,7 @@ try:
 
 except Exception as e:
 
-    def generate_data(samples, meastime: float = 0.01) -> Tuple[np.ndarray, np.ndarray]:
+    def multiple_data(samples, meastime: float = 0.01) -> Tuple[np.ndarray, np.ndarray]:
         """
         Genereer data voor de GUI als simulatie voor hardware.py als deze niet
         beschikbaar is.
@@ -88,7 +88,7 @@ except Exception as e:
 
         return data_arr[:, 1], data_arr[:, 0]
 
-    def single_data(tref):
+    def single_data():
         """
         Mock functie voor single data als hardware.py niet beschikbaar is.
         :param tref: referentie tijd
@@ -209,8 +209,6 @@ class Base_physics(tk.Tk):
         self.dpi = 100
         self.figsize = (
         self.geom[0] / (2 * self.dpi), self.geom[1] / (self.dpi))
-
-        self.Build_GUI_physics()
 
 
     def Build_GUI_physics(self, updated=True):
@@ -624,11 +622,11 @@ class Base_physics(tk.Tk):
         :return: None
         """
         if measurementtype == str(0):
-            data_time, data_voltage = generate_data(
+            data_time, data_voltage = multiple_data(
                 int(nrofmeasurements), meas_time)
             data_time -= tstart
         else:
-            data = single_data(last_time)
+            data = single_data()
 
             if prev_data_time.shape[0] > 200:
                 data_time, data_voltage = prev_data_time[1:], prev_data_voltage[1:]
@@ -729,7 +727,8 @@ class Base_physics(tk.Tk):
         return job
 
     # Gelinkte functies
-    def calculate_intesnity(self, x):
+    @staticmethod
+    def calculate_intesnity(x):
         """
         Bereken de intensiteit van een enkele waarde of array van waarden.
         Functie via: https://learn.sparkfun.com/tutorials/ml8511-uv-sensor-hookup-guide/all
@@ -846,7 +845,7 @@ class Base_physics(tk.Tk):
         self.pause_meas()
 
         st = Student_start_measurement()
-        st.data_source = generate_data
+        st.data_source = multiple_data
         st.data_source_single = single_data
 
         st.measure_frame(st.verification_measurement, result_function=st.update_startup)
