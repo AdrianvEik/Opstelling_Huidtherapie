@@ -94,7 +94,7 @@ transmission_set1 = np.abs(avg_voltage_set12 / avg_nulmeting)
 OD_set1 = -np.log10(transmission_set1)
 print(OD_set1)
 
-pl11 = Default(OD_values[:6], OD_set1[:6], y_err=std[:6], data_label="Thorlabs sensor", colour="r", fx=fit_func, linestyle="",
+pl11 = Default(OD_values[:7], OD_set1[:7], y_err=std[:7], data_label="Thorlabs sensor", colour="r", fx=fit_func, linestyle="",
               x_label="OD filter waarde", y_label="OD gemeten waarde", func_format="fit lin. gebied: y = {0}x", add_mode=True,
                capsize=5)
 pl21 = Default(OD_values[7:], OD_set1[7:], y_err=std[7:], colour="r", linestyle="",

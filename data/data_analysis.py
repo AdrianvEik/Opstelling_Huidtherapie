@@ -54,7 +54,7 @@ print(OD_set1.shape, OD_values.shape)
 print(OD_set1[6:], OD_values[6:])
 pl1 = Default(OD_values[:6], OD_set1[:6], y_err=std[:6], data_label="ML8511 UV zonder versterking", colour="b", fx=fit_func, linestyle="",
               x_label="OD filter waarde", y_label="OD gemeten waarde", func_format="fit lin. gebied: y = {0}x",
-              legend_loc="lower right", save_as="Compare_collimeerd_ingezoomed.png", capsize=5, decimal_comma=False)
+              legend_loc="lower right", save_as="Compare_collimeerd.png", capsize=5, decimal_comma=False)
 pl2 = Default(OD_values[6:], OD_set1[6:], y_err=std[6:], colour="b", linestyle="",
               add_mode=True, data_label="", capsize=5)
 
@@ -96,7 +96,7 @@ OD_set1 = -np.log10(transmission_set1)
 std = std / (OD_set1 * np.log(10))
 
 
-pl11 = Default(OD_values[:6], OD_set1[:6], y_err=std[:6], data_label="Thorlabs sensor", colour="r", fx=fit_func, linestyle="",
+pl11 = Default(OD_values[:7], OD_set1[:7], y_err=std[:7], data_label="Thorlabs sensor", colour="r", fx=fit_func, linestyle="",
               x_label="OD filter waarde", y_label="OD gemeten waarde", func_format="fit lin. gebied: y = {0}x", add_mode=True,
                capsize=5)
 pl21 = Default(OD_values[7:], OD_set1[7:], y_err=std[7:], colour="r", linestyle="",
@@ -144,10 +144,10 @@ pl32 = Default(OD_values[7:], OD_set1[7:], y_err=err[7:], colour="g", linestyle=
               add_mode=True, data_label="", capsize=5)
 
 pl1 += pl11
-# pl1 += pl21
-# pl1 += pl2
+pl1 += pl21
+pl1 += pl2
 pl1 += pl31
-# pl1 += pl32
+pl1 += pl32
 pl1()
 
 # plt.savefig("data_thorlas/plot_ODOD.png", dpi=600)

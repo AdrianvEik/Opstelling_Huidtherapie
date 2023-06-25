@@ -9,7 +9,6 @@ te kunnen gebruiken en hieraan te kunnen meten.
    :maxdepth: 2
    :caption: Contents:
 
-   voorbeelden
    quickstart
    interface
    api

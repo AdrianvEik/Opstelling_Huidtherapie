@@ -1,0 +1,1240 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg11051"
+   inkscape:version="1.1.2 (b8e25be833, 2022-02-05)"
+   sodipodi:docname="figuren_code.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview11053"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="true"
+     inkscape:zoom="1.2810466"
+     inkscape:cx="223.64526"
+     inkscape:cy="241.98964"
+     inkscape:window-width="1920"
+     inkscape:window-height="1057"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid11112" />
+  </sodipodi:namedview>
+  <defs
+     id="defs11048">
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect61834"
+       is_visible="true"
+       lpeversion="1" />
+    <marker
+       style="overflow:visible"
+       id="Arrow1Mstart"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mstart"
+       inkscape:isstock="true">
+      <path
+         transform="scale(0.4) translate(10,0)"
+         style="fill-rule:evenodd;fill:context-stroke;stroke:context-stroke;stroke-width:1.0pt"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         id="path14977" />
+    </marker>
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect61709"
+       is_visible="true"
+       lpeversion="1" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect61705"
+       is_visible="true"
+       lpeversion="1" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect54922"
+       is_visible="true"
+       lpeversion="1" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect54918"
+       is_visible="true"
+       lpeversion="1" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect54914"
+       is_visible="true"
+       lpeversion="1" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect54910"
+       is_visible="true"
+       lpeversion="1" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect53692"
+       is_visible="true"
+       lpeversion="1" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect53688"
+       is_visible="true"
+       lpeversion="1" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect39727"
+       is_visible="true"
+       lpeversion="1" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect31301"
+       is_visible="true"
+       lpeversion="1" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect28012"
+       is_visible="true"
+       lpeversion="1" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect26058"
+       is_visible="true"
+       lpeversion="1" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect25486"
+       is_visible="true"
+       lpeversion="1" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect25239"
+       is_visible="true"
+       lpeversion="1" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect21046"
+       is_visible="true"
+       lpeversion="1" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect20929"
+       is_visible="true"
+       lpeversion="1" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect20732"
+       is_visible="true"
+       lpeversion="1" />
+    <marker
+       style="overflow:visible;"
+       id="marker15241"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend"
+       inkscape:isstock="true">
+      <path
+         transform="scale(0.4) rotate(180) translate(10,0)"
+         style="fill-rule:evenodd;fill:context-stroke;stroke:context-stroke;stroke-width:1.0pt;"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         id="path15239" />
+    </marker>
+    <marker
+       style="overflow:visible;"
+       id="Arrow1Mend"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend"
+       inkscape:isstock="true">
+      <path
+         transform="scale(0.4) rotate(180) translate(10,0)"
+         style="fill-rule:evenodd;fill:context-stroke;stroke:context-stroke;stroke-width:1.0pt;"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         id="path14980" />
+    </marker>
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect14969"
+       is_visible="true"
+       lpeversion="1" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect12344"
+       is_visible="true"
+       lpeversion="1" />
+    <marker
+       style="overflow:visible"
+       id="marker15241-5"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend"
+       inkscape:isstock="true">
+      <path
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path15239-3" />
+    </marker>
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect21046-7"
+       is_visible="true"
+       lpeversion="1" />
+    <marker
+       style="overflow:visible"
+       id="marker15241-5-8"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend"
+       inkscape:isstock="true">
+      <path
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path15239-3-7" />
+    </marker>
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect21046-7-3"
+       is_visible="true"
+       lpeversion="1" />
+    <marker
+       style="overflow:visible"
+       id="marker15241-5-8-7"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend"
+       inkscape:isstock="true">
+      <path
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path15239-3-7-1" />
+    </marker>
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect21046-7-3-4"
+       is_visible="true"
+       lpeversion="1" />
+    <marker
+       style="overflow:visible"
+       id="marker15241-3"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend"
+       inkscape:isstock="true">
+      <path
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path15239-5" />
+    </marker>
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect14969-2"
+       is_visible="true"
+       lpeversion="1" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect20929-6"
+       is_visible="true"
+       lpeversion="1" />
+    <marker
+       style="overflow:visible"
+       id="marker15241-1"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend"
+       inkscape:isstock="true">
+      <path
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path15239-4" />
+    </marker>
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect21046-2"
+       is_visible="true"
+       lpeversion="1" />
+    <marker
+       style="overflow:visible"
+       id="marker15241-3-7"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend"
+       inkscape:isstock="true">
+      <path
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path15239-5-2" />
+    </marker>
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect14969-2-9"
+       is_visible="true"
+       lpeversion="1" />
+    <marker
+       style="overflow:visible"
+       id="marker15241-3-7-7"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend"
+       inkscape:isstock="true">
+      <path
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path15239-5-2-6" />
+    </marker>
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect14969-2-9-9"
+       is_visible="true"
+       lpeversion="1" />
+    <marker
+       style="overflow:visible"
+       id="marker15241-56"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend"
+       inkscape:isstock="true">
+      <path
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path15239-9" />
+    </marker>
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect28012-2"
+       is_visible="true"
+       lpeversion="1" />
+    <marker
+       style="overflow:visible"
+       id="marker15241-3-7-7-2"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend"
+       inkscape:isstock="true">
+      <path
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path15239-5-2-6-9" />
+    </marker>
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect14969-2-9-9-5"
+       is_visible="true"
+       lpeversion="1" />
+    <marker
+       style="overflow:visible"
+       id="marker15241-8"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend"
+       inkscape:isstock="true">
+      <path
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path15239-42" />
+    </marker>
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect28012-5"
+       is_visible="true"
+       lpeversion="1" />
+    <marker
+       style="overflow:visible"
+       id="marker15241-56-0"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend"
+       inkscape:isstock="true">
+      <path
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path15239-9-7" />
+    </marker>
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect28012-2-8"
+       is_visible="true"
+       lpeversion="1" />
+    <marker
+       style="overflow:visible"
+       id="marker15241-56-0-9"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend"
+       inkscape:isstock="true">
+      <path
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path15239-9-7-3" />
+    </marker>
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect28012-2-8-9"
+       is_visible="true"
+       lpeversion="1" />
+    <marker
+       style="overflow:visible"
+       id="marker15241-5-6"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend"
+       inkscape:isstock="true">
+      <path
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path15239-3-8" />
+    </marker>
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect31301-7"
+       is_visible="true"
+       lpeversion="1" />
+    <marker
+       style="overflow:visible"
+       id="marker15241-5-8-9"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend"
+       inkscape:isstock="true">
+      <path
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path15239-3-7-3" />
+    </marker>
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect39727-8"
+       is_visible="true"
+       lpeversion="1" />
+    <marker
+       style="overflow:visible"
+       id="marker15241-5-8-9-7"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend"
+       inkscape:isstock="true">
+      <path
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path15239-3-7-3-7" />
+    </marker>
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect39727-8-6"
+       is_visible="true"
+       lpeversion="1" />
+    <marker
+       style="overflow:visible"
+       id="marker15241-5-8-9-7-5"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend"
+       inkscape:isstock="true">
+      <path
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path15239-3-7-3-7-7" />
+    </marker>
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect39727-8-6-9"
+       is_visible="true"
+       lpeversion="1" />
+    <marker
+       style="overflow:visible"
+       id="marker15241-5-8-9-7-9"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend"
+       inkscape:isstock="true">
+      <path
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path15239-3-7-3-7-6" />
+    </marker>
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect39727-8-6-2"
+       is_visible="true"
+       lpeversion="1" />
+    <marker
+       style="overflow:visible"
+       id="marker15241-5-8-8"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend"
+       inkscape:isstock="true">
+      <path
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path15239-3-7-9" />
+    </marker>
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect39727-6"
+       is_visible="true"
+       lpeversion="1" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.58611px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="117.07002"
+       y="59.189381"
+       id="text12227"
+       inkscape:export-filename="D:\School\Libraries\Opstelling_Huidtherapie\data\Figuren\afhankelijkheidsrelaties.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         sodipodi:role="line"
+         id="tspan12225"
+         style="font-size:4.58611px;stroke-width:0.264583"
+         x="117.07002"
+         y="59.189381">source</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 124.35417,60.854166 V 142.875"
+       id="path12342"
+       inkscape:path-effect="#path-effect12344"
+       inkscape:original-d="m 124.35417,60.854166 c 2.6e-4,27.340541 2.6e-4,54.680824 0,82.020834"
+       inkscape:export-filename="D:\School\Libraries\Opstelling_Huidtherapie\data\Figuren\afhankelijkheidsrelaties.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.265;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none;marker-start:;marker-end:url(#marker15241)"
+       d="M 124.35417,70.114582 H 134.9375"
+       id="path14967"
+       inkscape:path-effect="#path-effect14969"
+       inkscape:original-d="m 124.35417,70.114582 c 3.52804,2.65e-4 7.05582,2.65e-4 10.58333,0"
+       inkscape:export-filename="D:\School\Libraries\Opstelling_Huidtherapie\data\Figuren\afhankelijkheidsrelaties.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.58611px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="136.22127"
+       y="71.644035"
+       id="text17993"
+       inkscape:export-filename="D:\School\Libraries\Opstelling_Huidtherapie\data\Figuren\afhankelijkheidsrelaties.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         sodipodi:role="line"
+         id="tspan17991"
+         style="font-size:4.58611px;stroke-width:0.264583"
+         x="136.22127"
+         y="71.644035">Physics Interface</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.58611px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="144.17696"
+       y="176.15045"
+       id="text17993-5"
+       inkscape:export-filename="D:\School\Libraries\Opstelling_Huidtherapie\data\Figuren\afhankelijkheidsrelaties.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         sodipodi:role="line"
+         id="tspan17991-45"
+         style="font-size:4.58611px;stroke-width:0.264583"
+         x="144.17696"
+         y="176.15045">Physics Interface</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.265;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker15241-3)"
+       d="M 124.35417,119.0625 H 134.9375"
+       id="path14967-8"
+       inkscape:path-effect="#path-effect14969-2"
+       inkscape:original-d="m 124.35417,119.0625 c 3.52804,2.6e-4 7.05582,2.6e-4 10.58333,0"
+       inkscape:export-filename="D:\School\Libraries\Opstelling_Huidtherapie\data\Figuren\afhankelijkheidsrelaties.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.265;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker15241-3-7)"
+       d="M 124.35417,150.8125 H 134.9375"
+       id="path14967-8-6"
+       inkscape:path-effect="#path-effect14969-2-9"
+       inkscape:original-d="m 124.35417,150.8125 c 3.52804,2.6e-4 7.05582,2.6e-4 10.58333,0"
+       inkscape:export-filename="D:\School\Libraries\Opstelling_Huidtherapie\data\Figuren\afhankelijkheidsrelaties.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.265;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker15241-3-7-7)"
+       d="M 124.35417,168.01042 H 134.9375"
+       id="path14967-8-6-8"
+       inkscape:path-effect="#path-effect14969-2-9-9"
+       inkscape:original-d="m 124.35417,168.01042 c 3.52804,2.6e-4 7.05582,2.6e-4 10.58333,0"
+       inkscape:export-filename="D:\School\Libraries\Opstelling_Huidtherapie\data\Figuren\afhankelijkheidsrelaties.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.265;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker15241-3-7-7-2)"
+       d="M 124.35417,187.85417 H 134.9375"
+       id="path14967-8-6-8-2"
+       inkscape:path-effect="#path-effect14969-2-9-9-5"
+       inkscape:original-d="m 124.35417,187.85417 c 3.52804,2.6e-4 7.05582,2.6e-4 10.58333,0"
+       inkscape:export-filename="D:\School\Libraries\Opstelling_Huidtherapie\data\Figuren\afhankelijkheidsrelaties.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.58611px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="136.22127"
+       y="120.59196"
+       id="text17993-4"
+       inkscape:export-filename="D:\School\Libraries\Opstelling_Huidtherapie\data\Figuren\afhankelijkheidsrelaties.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         sodipodi:role="line"
+         id="tspan17991-4"
+         style="font-size:4.58611px;stroke-width:0.264583"
+         x="136.22127"
+         y="120.59196">Student interface</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.58611px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="143.92122"
+       y="181.13072"
+       id="text17993-4-5"
+       inkscape:export-filename="D:\School\Libraries\Opstelling_Huidtherapie\data\Figuren\afhankelijkheidsrelaties.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         sodipodi:role="line"
+         id="tspan17991-4-0"
+         style="font-size:4.58611px;stroke-width:0.264583"
+         x="143.92122"
+         y="181.13072">Student interface</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.58611px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="169.41499"
+       y="82.177414"
+       id="text17993-9"
+       inkscape:export-filename="D:\School\Libraries\Opstelling_Huidtherapie\data\Figuren\afhankelijkheidsrelaties.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         sodipodi:role="line"
+         id="tspan17991-2"
+         style="font-size:4.58611px;stroke-width:0.264583"
+         x="169.41499"
+         y="82.177414">__init__</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.58611px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="137.85254"
+       y="152.01184"
+       id="text17993-9-5"
+       inkscape:export-filename="D:\School\Libraries\Opstelling_Huidtherapie\data\Figuren\afhankelijkheidsrelaties.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         sodipodi:role="line"
+         id="tspan17991-2-35"
+         style="font-size:4.58611px;stroke-width:0.264583"
+         x="137.85254"
+         y="152.01184">__init__</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.58611px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="137.86107"
+       y="169.41661"
+       id="text17993-9-5-0"
+       inkscape:export-filename="D:\School\Libraries\Opstelling_Huidtherapie\data\Figuren\afhankelijkheidsrelaties.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         sodipodi:role="line"
+         id="tspan17991-2-35-5"
+         style="font-size:4.58611px;stroke-width:0.264583"
+         x="137.86107"
+         y="169.41661">Base Interface</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.58611px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="137.73207"
+       y="189.79822"
+       id="text17993-9-5-0-4"
+       inkscape:export-filename="D:\School\Libraries\Opstelling_Huidtherapie\data\Figuren\afhankelijkheidsrelaties.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         sodipodi:role="line"
+         id="tspan17991-2-35-5-9"
+         style="font-size:4.58611px;stroke-width:0.264583"
+         x="137.73207"
+         y="189.79822">Hardware</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.58611px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="169.10519"
+       y="90.896515"
+       id="text17993-9-3"
+       inkscape:export-filename="D:\School\Libraries\Opstelling_Huidtherapie\data\Figuren\afhankelijkheidsrelaties.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         sodipodi:role="line"
+         id="tspan17991-2-3"
+         style="font-size:4.58611px;stroke-width:0.264583"
+         x="169.10519"
+         y="90.896515">Physics interface</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 153.45833,75.406249 V 111.125"
+       id="path20927"
+       inkscape:path-effect="#path-effect20929"
+       inkscape:original-d="m 153.45833,75.406249 c 2.7e-4,11.906514 2.7e-4,23.812764 0,35.718751"
+       inkscape:export-filename="D:\School\Libraries\Opstelling_Huidtherapie\data\Figuren\afhankelijkheidsrelaties.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker15241)"
+       d="m 153.45833,80.697916 h 11.90625"
+       id="path21044"
+       inkscape:path-effect="#path-effect21046"
+       inkscape:original-d="m 153.45833,80.697916 c 3.96902,2.64e-4 7.93777,2.64e-4 11.90625,0"
+       inkscape:export-filename="D:\School\Libraries\Opstelling_Huidtherapie\data\Figuren\afhankelijkheidsrelaties.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.58611px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="169.41499"
+       y="132.44824"
+       id="text17993-9-4"
+       inkscape:export-filename="D:\School\Libraries\Opstelling_Huidtherapie\data\Figuren\afhankelijkheidsrelaties.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         sodipodi:role="line"
+         id="tspan17991-2-8"
+         style="font-size:4.58611px;stroke-width:0.264583"
+         x="169.41499"
+         y="132.44824">__init__</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.58611px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="169.46663"
+       y="143.61371"
+       id="text17993-9-4-8"
+       inkscape:export-filename="D:\School\Libraries\Opstelling_Huidtherapie\data\Figuren\afhankelijkheidsrelaties.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         sodipodi:role="line"
+         id="tspan17991-2-8-1"
+         style="font-size:4.58611px;stroke-width:0.264583"
+         x="169.46663"
+         y="143.61371">Student interface</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker15241-1)"
+       d="m 153.45833,130.96875 h 11.90625"
+       id="path21044-8"
+       inkscape:path-effect="#path-effect21046-2"
+       inkscape:original-d="m 153.45833,130.96875 c 3.96902,2.6e-4 7.93777,2.6e-4 11.90625,0"
+       inkscape:export-filename="D:\School\Libraries\Opstelling_Huidtherapie\data\Figuren\afhankelijkheidsrelaties.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker15241-5)"
+       d="m 153.45833,89.958333 h 11.90625"
+       id="path21044-3"
+       inkscape:path-effect="#path-effect21046-7"
+       inkscape:original-d="m 153.45833,89.958333 c 3.96902,2.64e-4 7.93777,2.64e-4 11.90625,0"
+       inkscape:export-filename="D:\School\Libraries\Opstelling_Huidtherapie\data\Figuren\afhankelijkheidsrelaties.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.58611px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="169.10519"
+       y="101.47984"
+       id="text17993-9-3-5"
+       inkscape:export-filename="D:\School\Libraries\Opstelling_Huidtherapie\data\Figuren\afhankelijkheidsrelaties.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         sodipodi:role="line"
+         id="tspan17991-2-3-3"
+         style="font-size:4.58611px;stroke-width:0.264583"
+         x="169.10519"
+         y="101.47984">Data manipulation</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker15241-5-8)"
+       d="m 153.45833,100.54167 h 11.90625"
+       id="path21044-3-2"
+       inkscape:path-effect="#path-effect21046-7-3"
+       inkscape:original-d="m 153.45833,100.54167 c 3.96902,2.6e-4 7.93777,2.6e-4 11.90625,0"
+       inkscape:export-filename="D:\School\Libraries\Opstelling_Huidtherapie\data\Figuren\afhankelijkheidsrelaties.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.58611px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="169.10519"
+       y="112.06318"
+       id="text17993-9-3-5-4"
+       inkscape:export-filename="D:\School\Libraries\Opstelling_Huidtherapie\data\Figuren\afhankelijkheidsrelaties.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         sodipodi:role="line"
+         id="tspan17991-2-3-3-2"
+         style="font-size:4.58611px;stroke-width:0.264583"
+         x="169.10519"
+         y="112.06318">Settings</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker15241-5-8-7)"
+       d="m 153.45833,111.125 h 11.90625"
+       id="path21044-3-2-6"
+       inkscape:path-effect="#path-effect21046-7-3-4"
+       inkscape:original-d="m 153.45833,111.125 c 3.96902,2.6e-4 7.93777,2.6e-4 11.90625,0"
+       inkscape:export-filename="D:\School\Libraries\Opstelling_Huidtherapie\data\Figuren\afhankelijkheidsrelaties.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.234317px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 153.45833,123.03125 v 19.71382"
+       id="path25237"
+       inkscape:path-effect="#path-effect25239"
+       inkscape:original-d="m 153.45833,123.03125 c 2.7e-4,6.57148 2.7e-4,13.14276 0,19.71382"
+       inkscape:export-filename="D:\School\Libraries\Opstelling_Huidtherapie\data\Figuren\afhankelijkheidsrelaties.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker15241)"
+       d="m 153.45833,142.875 h 11.90625"
+       id="path25484"
+       inkscape:path-effect="#path-effect25486"
+       inkscape:original-d="m 153.45833,142.875 c 3.96902,2.6e-4 7.93777,2.6e-4 11.90625,0"
+       inkscape:export-filename="D:\School\Libraries\Opstelling_Huidtherapie\data\Figuren\afhankelijkheidsrelaties.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.243933px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 124.35417,142.875 v 44.97917"
+       id="path26056"
+       inkscape:path-effect="#path-effect26058"
+       inkscape:original-d="m 124.35417,142.875 c 2.6e-4,14.99328 2.6e-4,29.98634 0,44.97917"
+       inkscape:export-filename="D:\School\Libraries\Opstelling_Huidtherapie\data\Figuren\afhankelijkheidsrelaties.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <path
+       style="fill:none;stroke:#00ff00;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker15241)"
+       d="m 134.9375,174.625 h 6.61458"
+       id="path28010"
+       inkscape:path-effect="#path-effect28012"
+       inkscape:original-d="m 134.9375,174.625 c 2.20512,2.6e-4 4.40999,2.6e-4 6.61458,0"
+       inkscape:export-filename="D:\School\Libraries\Opstelling_Huidtherapie\data\Figuren\afhankelijkheidsrelaties.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <path
+       style="fill:none;stroke:#00ff00;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker15241-56)"
+       d="m 134.9375,179.91667 h 6.61458"
+       id="path28010-5"
+       inkscape:path-effect="#path-effect28012-2"
+       inkscape:original-d="m 134.9375,179.91667 c 2.20512,2.6e-4 4.40999,2.6e-4 6.61458,0"
+       inkscape:export-filename="D:\School\Libraries\Opstelling_Huidtherapie\data\Figuren\afhankelijkheidsrelaties.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.58611px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="144.17696"
+       y="156.3067"
+       id="text17993-5-6"
+       inkscape:export-filename="D:\School\Libraries\Opstelling_Huidtherapie\data\Figuren\afhankelijkheidsrelaties.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         sodipodi:role="line"
+         id="tspan17991-45-1"
+         style="font-size:4.58611px;stroke-width:0.264583"
+         x="144.17696"
+         y="156.3067">Physics Interface</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.58611px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="143.92122"
+       y="161.28697"
+       id="text17993-4-5-9"
+       inkscape:export-filename="D:\School\Libraries\Opstelling_Huidtherapie\data\Figuren\afhankelijkheidsrelaties.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         sodipodi:role="line"
+         id="tspan17991-4-0-1"
+         style="font-size:4.58611px;stroke-width:0.264583"
+         x="143.92122"
+         y="161.28697">Student interface</tspan></text>
+    <path
+       style="fill:none;stroke:#00ff00;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker15241-8)"
+       d="m 134.9375,154.78125 h 6.61458"
+       id="path28010-7"
+       inkscape:path-effect="#path-effect28012-5"
+       inkscape:original-d="m 134.9375,154.78125 c 2.20512,2.6e-4 4.40999,2.6e-4 6.61458,0"
+       inkscape:export-filename="D:\School\Libraries\Opstelling_Huidtherapie\data\Figuren\afhankelijkheidsrelaties.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <path
+       style="fill:none;stroke:#00ff00;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker15241-56-0)"
+       d="m 134.9375,160.07292 h 6.61458"
+       id="path28010-5-9"
+       inkscape:path-effect="#path-effect28012-2-8"
+       inkscape:original-d="m 134.9375,160.07292 c 2.20512,2.6e-4 4.40999,2.6e-4 6.61458,0"
+       inkscape:export-filename="D:\School\Libraries\Opstelling_Huidtherapie\data\Figuren\afhankelijkheidsrelaties.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.43958px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.198437"
+       x="176.40184"
+       y="94.837624"
+       id="text17993-4-5-9-7"
+       inkscape:export-filename="D:\School\Libraries\Opstelling_Huidtherapie\data\Figuren\afhankelijkheidsrelaties.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         sodipodi:role="line"
+         id="tspan17991-4-0-1-2"
+         style="font-size:3.43958px;stroke-width:0.198437"
+         x="176.40184"
+         y="94.837624">Student interface</tspan></text>
+    <path
+       style="fill:none;stroke:#00ff00;stroke-width:0.198437px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker15241-56-0-9)"
+       d="M 169.66406,93.927083 H 174.625"
+       id="path28010-5-9-2"
+       inkscape:path-effect="#path-effect28012-2-8-9"
+       inkscape:original-d="m 169.66406,93.927083 c 1.65384,1.95e-4 3.30749,1.95e-4 4.96094,0"
+       inkscape:export-filename="D:\School\Libraries\Opstelling_Huidtherapie\data\Figuren\afhankelijkheidsrelaties.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <rect
+       style="fill:none;fill-opacity:0.625352;stroke:#00ff00;stroke-width:0.264999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect31184"
+       width="5.2916665"
+       height="5.2916665"
+       x="124.35416"
+       y="197.11458"
+       inkscape:export-filename="D:\School\Libraries\Opstelling_Huidtherapie\data\Figuren\afhankelijkheidsrelaties.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <path
+       style="fill:none;stroke:#00ff00;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker15241-5)"
+       d="m 125.67707,199.76041 h 2.64583"
+       id="path31299"
+       inkscape:path-effect="#path-effect31301"
+       inkscape:original-d="m 125.67707,199.76041 c 0.88221,2.6e-4 1.76416,2.6e-4 2.64583,0"
+       inkscape:export-filename="D:\School\Libraries\Opstelling_Huidtherapie\data\Figuren\afhankelijkheidsrelaties.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.88056px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="132.58189"
+       y="201.1866"
+       id="text32955"
+       inkscape:export-filename="D:\School\Libraries\Opstelling_Huidtherapie\data\Figuren\afhankelijkheidsrelaties.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         sodipodi:role="line"
+         id="tspan32953"
+         style="font-size:3.88056px;stroke-width:0.264583"
+         x="132.58189"
+         y="201.1866">Bevat een link naar</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker15241-5-8)"
+       d="m 39.6875,21.166663 v 11.90625"
+       id="path39725"
+       inkscape:path-effect="#path-effect39727"
+       inkscape:original-d="m 39.6875,21.166663 c 2.65e-4,3.969015 2.65e-4,7.937765 0,11.90625"
+       inkscape:export-filename="D:\School\Libraries\Opstelling_Huidtherapie\data\Figuren\threadinguitleg.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker15241-5-8-8)"
+       d="m 39.6875,38.364583 v 11.90625"
+       id="path39725-0"
+       inkscape:path-effect="#path-effect39727-6"
+       inkscape:original-d="m 39.6875,38.364583 c 2.65e-4,3.969015 2.65e-4,7.937765 0,11.90625"
+       inkscape:export-filename="D:\School\Libraries\Opstelling_Huidtherapie\data\Figuren\threadinguitleg.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker15241-5-8-9)"
+       d="m 82.020833,38.364583 v 11.90625"
+       id="path39725-7"
+       inkscape:path-effect="#path-effect39727-8"
+       inkscape:original-d="m 82.020833,38.364583 c 2.65e-4,3.969015 2.65e-4,7.937765 0,11.90625"
+       inkscape:export-filename="D:\School\Libraries\Opstelling_Huidtherapie\data\Figuren\threadinguitleg.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker15241-5-8-9-7-9)"
+       d="m 39.6875,62.177083 v 11.90625"
+       id="path39725-7-8-3"
+       inkscape:path-effect="#path-effect39727-8-6-2"
+       inkscape:original-d="m 39.6875,62.177083 c 2.65e-4,3.96901 2.65e-4,7.93776 0,11.90625"
+       inkscape:export-filename="D:\School\Libraries\Opstelling_Huidtherapie\data\Figuren\threadinguitleg.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.58611px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="26.753969"
+       y="18.556614"
+       id="text41167"
+       inkscape:export-filename="D:\School\Libraries\Opstelling_Huidtherapie\data\Figuren\threadinguitleg.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         sodipodi:role="line"
+         id="tspan41165"
+         style="font-size:4.58611px;stroke-width:0.264583"
+         x="26.753969"
+         y="18.556614">Main thread</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.58611px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="66.730995"
+       y="32.310287"
+       id="text41167-9"
+       inkscape:export-filename="D:\School\Libraries\Opstelling_Huidtherapie\data\Figuren\threadinguitleg.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         sodipodi:role="line"
+         id="tspan41165-7"
+         style="font-size:4.58611px;stroke-width:0.264583"
+         x="66.730995"
+         y="32.310287">Meting thread</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.88056px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="27.373579"
+       y="36.990025"
+       id="text43945"
+       inkscape:export-filename="D:\School\Libraries\Opstelling_Huidtherapie\data\Figuren\threadinguitleg.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         sodipodi:role="line"
+         id="tspan43943"
+         style="font-size:3.88056px;stroke-width:0.264583"
+         x="27.373579"
+         y="36.990025">update vars()</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.88056px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="26.174828"
+       y="108.7912"
+       id="text43945-2"
+       inkscape:export-filename="D:\School\Libraries\Opstelling_Huidtherapie\data\Figuren\threadinguitleg.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         sodipodi:role="line"
+         id="tspan43943-1"
+         style="font-size:3.88056px;stroke-width:0.264583"
+         x="26.174828"
+         y="108.7912">update vars()</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.88056px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="65.894691"
+       y="55.532188"
+       id="text43945-0"
+       inkscape:export-filename="D:\School\Libraries\Opstelling_Huidtherapie\data\Figuren\threadinguitleg.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         sodipodi:role="line"
+         id="tspan43943-0"
+         style="font-size:3.88056px;stroke-width:0.264583"
+         x="65.894691"
+         y="55.532188">langdurige meting</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.88056px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="23.32814"
+       y="54.369259"
+       id="text43945-0-2"
+       inkscape:export-filename="D:\School\Libraries\Opstelling_Huidtherapie\data\Figuren\threadinguitleg.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         sodipodi:role="line"
+         id="tspan43943-0-0"
+         style="font-size:3.88056px;stroke-width:0.264583"
+         x="23.32814"
+         y="54.369259">rest van de update</tspan><tspan
+         sodipodi:role="line"
+         style="font-size:3.88056px;stroke-width:0.264583"
+         x="23.32814"
+         y="59.219959"
+         id="tspan51028"> vars functie</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.88056px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="22.125694"
+       y="78.865669"
+       id="text43945-0-2-9"
+       inkscape:export-filename="D:\School\Libraries\Opstelling_Huidtherapie\data\Figuren\threadinguitleg.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         sodipodi:role="line"
+         style="font-size:3.88056px;stroke-width:0.264583"
+         x="22.125694"
+         y="78.865669"
+         id="tspan51028-7">Gebruikers interactie</tspan><tspan
+         sodipodi:role="line"
+         style="font-size:3.88056px;stroke-width:0.264583"
+         x="22.125694"
+         y="83.71637"
+         id="tspan53418"> met het scherm</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.265;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       d="M 55.562499,35.71875 H 82.020832"
+       id="path53686"
+       inkscape:path-effect="#path-effect53688"
+       inkscape:original-d="m 55.562499,35.71875 c 8.819665,2.64e-4 17.639109,2.64e-4 26.458333,0"
+       inkscape:export-filename="D:\School\Libraries\Opstelling_Huidtherapie\data\Figuren\threadinguitleg.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 82.020832,38.364583 V 35.71875"
+       id="path53690"
+       inkscape:path-effect="#path-effect53692"
+       inkscape:original-d="m 82.020832,38.364583 c 2.64e-4,-0.881679 2.64e-4,-1.763625 0,-2.645833"
+       inkscape:export-filename="D:\School\Libraries\Opstelling_Huidtherapie\data\Figuren\threadinguitleg.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.265;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       d="m 82.020833,58.20833 v 46.30209"
+       id="path54908"
+       inkscape:path-effect="#path-effect54910"
+       inkscape:original-d="m 82.020833,58.20833 c 2.64e-4,15.434291 2.64e-4,30.86832 0,46.30209"
+       inkscape:export-filename="D:\School\Libraries\Opstelling_Huidtherapie\data\Figuren\threadinguitleg.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 39.6875,85.989582 V 103.1875"
+       id="path54912"
+       inkscape:path-effect="#path-effect54914"
+       inkscape:original-d="m 39.6875,85.989582 c 2.64e-4,5.732905 2.64e-4,11.465542 0,17.197918"
+       inkscape:export-filename="D:\School\Libraries\Opstelling_Huidtherapie\data\Figuren\threadinguitleg.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 35.71875,92.604166 7.937499,3.968749"
+       id="path54916"
+       inkscape:path-effect="#path-effect54918"
+       inkscape:original-d="m 35.71875,92.604166 c 2.646097,1.323181 5.291931,2.646097 7.937499,3.968749"
+       inkscape:export-filename="D:\School\Libraries\Opstelling_Huidtherapie\data\Figuren\threadinguitleg.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 35.71875,25.135416 7.937499,2.645834"
+       id="path54920"
+       inkscape:path-effect="#path-effect54922"
+       inkscape:original-d="m 35.71875,25.135416 c 2.646097,0.882209 5.291931,1.764155 7.937499,2.645834"
+       inkscape:export-filename="D:\School\Libraries\Opstelling_Huidtherapie\data\Figuren\threadinguitleg.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.175px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="17.992632"
+       y="95.842697"
+       id="text57470"
+       inkscape:export-filename="D:\School\Libraries\Opstelling_Huidtherapie\data\Figuren\threadinguitleg.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         sodipodi:role="line"
+         id="tspan57468"
+         style="font-size:3.175px;stroke-width:0.264583"
+         x="17.992632"
+         y="95.842697">cyclus 1+n</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.175px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="21.278614"
+       y="27.283743"
+       id="text57470-7"
+       inkscape:export-filename="D:\School\Libraries\Opstelling_Huidtherapie\data\Figuren\threadinguitleg.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         sodipodi:role="line"
+         id="tspan57468-2"
+         style="font-size:3.175px;stroke-width:0.264583"
+         x="21.278614"
+         y="27.283743">cyclus 1</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 82.020833,104.51042 v 3.96875"
+       id="path61703"
+       inkscape:path-effect="#path-effect61705"
+       inkscape:original-d="m 82.020833,104.51042 c 2.64e-4,1.32318 2.64e-4,2.64609 0,3.96875"
+       inkscape:export-filename="D:\School\Libraries\Opstelling_Huidtherapie\data\Figuren\threadinguitleg.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.265;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#Arrow1Mstart);stroke-miterlimit:4;stroke-dasharray:none"
+       d="M 55.562499,108.47917 H 82.020833"
+       id="path61707"
+       inkscape:path-effect="#path-effect61709"
+       inkscape:original-d="m 55.562499,108.47917 c 8.819665,2.6e-4 17.63911,2.6e-4 26.458334,0"
+       inkscape:export-filename="D:\School\Libraries\Opstelling_Huidtherapie\data\Figuren\threadinguitleg.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker15241-5-8-7)"
+       d="m 39.6875,111.125 v 10.58333"
+       id="path61832"
+       inkscape:path-effect="#path-effect61834"
+       inkscape:original-d="m 39.6875,111.125 c 2.64e-4,3.52804 2.64e-4,7.05582 0,10.58333"
+       inkscape:export-filename="D:\School\Libraries\Opstelling_Huidtherapie\data\Figuren\threadinguitleg.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+  </g>
+</svg>

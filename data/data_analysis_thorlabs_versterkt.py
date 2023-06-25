@@ -52,7 +52,7 @@ OD_set1 = -np.log10(transmission_set1)
 std = std / (OD_set1 * np.log(10))
 
 
-pl1 = Default(OD_values[:6], OD_set1[:6], y_err=std[:6], data_label="Thorlabs sensor", colour="r", fx=fit_func, linestyle="",
+pl1 = Default(OD_values[:7], OD_set1[:7], y_err=std[:7], data_label="Thorlabs sensor", colour="r", fx=fit_func, linestyle="",
               x_label="OD filter waarde", y_label="OD gemeten waarde", func_format="fit lin. gebied: y = {0}x",
                capsize=5, save_as="ODOD_thorlabsversterkt.png")
 pl21 = Default(OD_values[7:], OD_set1[7:], y_err=std[7:], colour="r", linestyle="",

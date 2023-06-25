@@ -18,6 +18,8 @@ De class met zijn methodes en attributen gebruikt voor dit scherm staan hieronde
    :undoc-members:
    :show-inheritance:
 
+
+.. _Physics_Interface:
 Physics Interface
 =================
 
@@ -80,6 +82,8 @@ het pad naar de directory waar het wordt opgeslagen en de naam van het bestand.
    :members:
    :undoc-members:
    :show-inheritance:
+
+.. _Student_Measurement_interface:
 
 Student Measurement interface
 =============================

@@ -1,6 +1,0 @@
-
-.. _voorbeelden:
-
-Voorbeelden
-===========
-

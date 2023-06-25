@@ -65,7 +65,7 @@ voltages_nulmeting = calculate_intesnity(data_nulmeting[1:-1:3, :])
 # Add the data sets together and calculate the standard deviation
 std = [np.std(voltages_set1[i]) * sigma for i in range(voltages_set1.shape[0])]
 
-OD_values = compute_OD_from_T( np.array([81, 65, 56, 45, 30, 10, 0.76, 0.1, 0.001]))
+OD_values = compute_OD_from_T( np.array([81, 65, 56, 45, 38 ,30, 10, 0.76, 0.1, 0.001]))
 OD_values_hoog = np.array([2, 3, 4])
 
 OD_values = OD_values
@@ -112,17 +112,15 @@ OD_set2 = -np.log10(transmission_set2)
 OD_set1 = np.delete(OD_set1, 4)
 OD_setthorlabs = np.delete(OD_setthorlabs, 4)
 
-pl1 = Default(OD_values, OD_set2 - OD_set1, data_label="ML8511 UV versterkt - niet versterkt", colour="b", linestyle="",
-              x_label="OD filter waarde", y_label="Verschil in OD-waarde", legend_loc="lower right",
-              save_as="difference_versterkt.png", capsize=5, decimal_comma=False, marker="o")
+pl1 = Default(OD_values[:5], OD_set1[:5] - OD_values[:5], data_label="ML8511 UV niet versterkt", colour="b", linestyle="",
+              x_label="OD filter waarde", y_label="$\Delta$ OD", legend_loc="upper left",
+              save_as="difference_versterkt_ingezoomed.png", capsize=5, decimal_comma=False, marker="o")
 
-pl2 = Default(OD_values, OD_set2 - OD_setthorlabs, data_label="ML8511 UV versterkt - Thorlabs sensor", colour="r", linestyle="",
-              x_label="OD filter waarde", y_label="Verschil in OD-waarde", legend_loc="lower right",
-              save_as="difference_versterkt.png", capsize=5, decimal_comma=False, add_mode=True, marker="*")
+pl2 = Default(OD_values[:5], OD_set2[:5] - OD_values[:5], data_label="ML8511 UV versterkt", colour="r", linestyle="",
+              x_label="OD filter waarde", y_label="$\Delta$ OD", legend_loc="lower right", capsize=5, decimal_comma=False, add_mode=True, marker="*")
 
-pl3 = Default(OD_values, OD_set1 - OD_setthorlabs, data_label="ML8511 UV niet versterkt - Thorlabs sensor", colour="g", linestyle="",
-              x_label="OD filter waarde", y_label="Verschil in OD-waarde", legend_loc="lower right",
-              save_as="difference_versterkt.png", capsize=5, decimal_comma=False, add_mode=True, marker="X")
+pl3 = Default(OD_values[:5], OD_setthorlabs[:5] - OD_values[:5], data_label="Thorlabs sensor", colour="g", linestyle="",
+              x_label="OD filter waarde", y_label="$\Delta$ OD", legend_loc="lower right", capsize=5, decimal_comma=False, add_mode=True, marker="X")
 
 pl1 += pl2
 pl1 += pl3
