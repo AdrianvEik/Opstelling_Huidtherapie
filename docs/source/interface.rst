@@ -30,7 +30,7 @@ instelbaar in de config file en via de instellingen van het
 troubleshoot/instellingen scherm samen met een verscheidenheid van andere
 parameters.
 
-.. image:: /_images/studentent_parameters.png
+.. image:: /_images/studenten_parameters.png
     :align: center
 
 Indien de kalibratie succesvol is verlopen wordt het volgende scherm getoond
